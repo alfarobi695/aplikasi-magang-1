@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="pageTitle">E-Presensi</div>
-        <div class="right"></div>
+        <div class="right"></div> 
     </div>
     <!-- * App Header -->
 @endsection
@@ -101,11 +101,11 @@
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
 
-            var circle = L.circle([-6.916810104499334, 107.79425030729652], {
+            var circle = L.circle([-7.929872548857881, 112.64928946236074], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 15
+                radius: 55
             }).addTo(map);
         }
 
