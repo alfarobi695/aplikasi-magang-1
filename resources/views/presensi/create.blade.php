@@ -43,6 +43,11 @@
     <div class="row mt-1">
         <div class="col">
             @if ($cek > 0)
+            <div class="mb-3">                
+                <label class="form-label">Kegiatan:</label>
+                <textarea name="kegiatan" class="form-control cursor-pointer" required rows="5"
+                placeholder="Masukan kegiatan dalam 1 paragraf"></textarea>
+            </div>
                 <button id="takeabsen" class="btn btn-danger btn-block"><ion-icon name="camera-outline">
                     </ion-icon> Absen Pulang
                 </button>
@@ -117,6 +122,7 @@
             Webcam.snap(function(uri) {
                 image = uri;
             })
+            var kegiatan = $('textarea[name="kegiatan"]').val();
             var lokasi = $('#lokasi').val()
             $.ajax({
                 type: "POST",
@@ -124,7 +130,8 @@
                 data: {
                     _token: "{{ csrf_token() }}",
                     image: image,
-                    lokasi: lokasi
+                    lokasi: lokasi,
+                    kegiatan: kegiatan
                 },
                 cache: false,
                 success: function(response) {
