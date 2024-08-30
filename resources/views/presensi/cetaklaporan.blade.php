@@ -86,7 +86,7 @@
                 <td rowspan="6">
                     @php
                         $path = Storage::url('uploads/karyawan/' . $karyawan->foto);
-                      @endphp
+                    @endphp
                     <img src="{{ url($path) }}" width="120px" alt="">
                 </td>
                 <td>NIK</td>
@@ -155,7 +155,8 @@
                             </td>
                             <td>
                                 @if ($menit_terlambat > 0)
-                                    Terlambat {{ $menit_terlambat }} menit | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br> {{ $prs->kegiatan }}
+                                    Terlambat {{ $menit_terlambat }} menit | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br>
+                                    {{ $prs->kegiatan }}
                                 @else
                                     Tepat Waktu | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br> {{ $prs->kegiatan }}
                                 @endif
