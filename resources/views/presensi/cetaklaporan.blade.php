@@ -3,21 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>A4</title>
+    <title>Print Laporan Magang PN {{ strtoupper($namabulan[$bulan])  }} {{ $tahun }}</title>
 
-    <!-- Normalize or reset CSS with your favorite library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-
-    <!-- Load paper.css for happy printing -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
 
-    <!-- Set page size here: A5, A4 or A3 -->
-    <!-- Set also "landscape" if you need -->
     <style>
-        @page {
-            size: A4
-        }
-
         #title {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
@@ -38,6 +29,7 @@
             border: 1px solid #0a0a0a;
             padding: 8px;
             background-color: #dbdbdb;
+            font-size: 12px;
         }
 
         .tabelpresensi tr td {
@@ -50,75 +42,97 @@
             width: 40px;
             height: 30px;
         }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+        
+        .header-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #000; 
+        }
+        
+        .header-wrapper img {
+            width: 80px;
+            margin-right: 20px;
+        }
+        
+        .header {
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            margin: 0;
+        }
+        
+        .header p {
+            font-size: 11px;
+            margin: 0;
+        }
+        
+        .content {
+            padding: 0 50px;
+        }
+
+        .content .student-info {
+            font-size: 14px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .content .student-info p {
+            font-weight: bold;
+            margin: 0;
+        }
     </style>
+
+    <script>
+        // JavaScript to trigger print dialog automatically
+        window.onload = function() {
+            window.print();
+        };
+    </script>
 </head>
 
-<!-- Set "A5", "A4" or "A3" for class name -->
-<!-- Set also "landscape" if you need -->
-
-<body class="A4">
-
-
-
-    <!-- Each sheet element should have the class "sheet" -->
-    <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
+<body>
     <section class="sheet padding-10mm">
+        <div class="header-wrapper">
+            <img src="{{ asset('assets/logo.jpeg') }}" style="margin-right: 45px;margin-left: 40px" alt="Logo">
+            <div class="header">
+                <h1>MAHKAMAH AGUNG REPUBLIK INDONESIA</h1>
+                <h1>DIREKTORAT JENDERAL BADAN PERADILAN UMUM</h1>
+                <h1>PENGADILAN TINGGI SURABAYA</h1>
+                <h1>PENGADILAN NEGERI MALANG</h1>
+                <p>Jln. Jend. A. Yani Utara No.198 RT 001 RW 008 Kel. Purwodadi, Kec Blimbing,</p>
+                <p>Kota Malang, Jawa Timur 65126 Telp. (0341) 491254, Fax. (0341) 495171</p>
+                <p>Website: www.pn-malang.go.id | Email: pn.malang198@gmail.com</p>
+            </div>
+        </div>
 
-        <table>
-            <tr>
-                <td style="width: 100px">
-                    <img src="{{ asset('assets/img/yodyakarya.png') }}" width="70" height="70" alt="">
-                </td>
-                <td>
-                    <span id="title">
-                        LAPORAN ABSENSI KARYAWAN<br />
-                        PERIODE {{ strtoupper($namabulan[$bulan])  }} {{ $tahun }}<br />
-                        PT.YODYA KARYA PERSERO <br />
-                    </span>
-                    <span><i>Timur DKI Jakarta, Jl. Mayjen DI Panjaitan Kav 8 Cipinang Besar Selatan, RT.5/RW.11,
-                            Cipinang Cempedak, Kecamatan Jatinegara, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta
-                            13340</i></span>
-                </td>
-            </tr>
-        </table>
-        <table class="tabeldatakaryawan">
-            <tr>
-                <td rowspan="6">
-                    @php
-                        $path = Storage::url('uploads/karyawan/' . $karyawan->foto);
-                    @endphp
-                    <img src="{{ url($path) }}" width="120px" alt="">
-                </td>
-                <td>NIK</td>
-                <td>:</td>
-                <td>{{ $karyawan->nik }}</td>
-            </tr>
-            <tr>
-                <td>Nama karyawan</td>
-                <td>:</td>
-                <td>{{ $karyawan->nama_lengkap }}</td>
-            </tr>
-            <tr>
-                <td>Jabatan</td>
-                <td>:</td>
-                <td>{{ $karyawan->jabatan }}</td>
-            </tr>
-            <tr>
-                <td>Departemen</td>
-                <td>:</td>
-                <td>{{ $karyawan->nama_dept }}</td>
-            </tr>
-            <tr>
-                <td>No HP</td>
-                <td>:</td>
-                <td>{{ $karyawan->no_hp }}</td>
-            </tr>
-        </table>
+        <div class="content">
+            <div class="student-info">
+                <p>MONITORING KEGIATAN MAHASISWA MAGANG PERIODE {{ strtoupper($namabulan[$bulan])  }} {{ $tahun }}</p><br/>
+                <p>POLITEKNIK NEGERI MALANG</p>
+                <p>JURUSAN TEKNOLOGI INFORMASI</p>
+                <p>PROGRAM STUDI D-IV TEKNIK INFORMATIKA</p>
+                <br>
+                <p style="text-transform:uppercase">{{ $karyawan->nama_lengkap }}</p>
+                <p>NIM : {{ $karyawan->nik }}</p>
+            </div>
+        </div>
         <table class="tabelpresensi">
             <tr>
                 <th>No.</th>
                 <th>Tanggal</th>
-                <th>nik</th>
+                <th>Ruang</th>
                 <th>Jam Masuk</th>
                 <th>Foto</th>
                 <th>Jam Pulang</th>
@@ -126,63 +140,58 @@
                 <th>Keterangan</th>
             </tr>
             @foreach ($presensi as $prs)
-                        @php
-                            $path_in = Storage::url('upload/absensi/' . $prs->foto_in);
-                            $path_out = Storage::url('upload/absensi/' . $prs->foto_out);
+                @php
+                    $path_in = Storage::url('upload/absensi/' . $prs->foto_in);
+                    $path_out = Storage::url('upload/absensi/' . $prs->foto_out);
 
-                            // Hitung total jam kerja
-                            $jam_in = strtotime($prs->jam_in);
-                            $jam_out = $prs->jam_out !== null ? strtotime($prs->jam_out) : null;
-                            $total_jam_kerja = $jam_out ? round(($jam_out - $jam_in) / 3600, 2) : 'Belum Absen';
+                    $jam_in = strtotime($prs->jam_in);
+                    $jam_out = $prs->jam_out !== null ? strtotime($prs->jam_out) : null;
+                    $total_jam_kerja = $jam_out ? round(($jam_out - $jam_in) / 3600, 2) : 'Belum Absen';
 
-                            // Hitung menit terlambat
-                            $waktu_masuk_normal = strtotime('07:30');
-                            $menit_terlambat = $jam_in > $waktu_masuk_normal ? round(($jam_in - $waktu_masuk_normal) / 60) : 0;
-                        @endphp
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ date("d-m-y", strtotime($prs->tgl_presensi)) }}</td>
-                            <td>{{ $prs->nik }}</td>
-                            <td>{{ $prs->jam_in }}</td>
-                            <td><img src="{{ url($path_in) }}" alt="" class="foto"></td>
-                            <td>{{ $prs->jam_out !== null ? $prs->jam_out : 'Belum Absen' }}</td>
-                            <td>
-                                @if ($prs->jam_out !== null)
-                                    <img src="{{ url($path_out) }}" alt="" class="foto">
-                                @else
-                                    <img src="{{ asset('assets/img/kamera.png') }}" alt="" class="foto">
-                                @endif
-                            </td>
-                            <td>
-                                @if ($menit_terlambat > 0)
-                                    Terlambat {{ $menit_terlambat }} menit | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br>
-                                    {{ $prs->kegiatan }}
-                                @else
-                                    Tepat Waktu | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br> {{ $prs->kegiatan }}
-                                @endif
-                            </td>
-                        </tr>
+                    $waktu_masuk_normal = strtotime('07:30');
+                    $menit_terlambat = $jam_in > $waktu_masuk_normal ? round(($jam_in - $waktu_masuk_normal) / 60) : 0;
+                @endphp
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ date("d-m-y", strtotime($prs->tgl_presensi)) }}</td>
+                    <td>{{ $prs->nik }}</td>
+                    <td>{{ $prs->jam_in }}</td>
+                    <td><img src="{{ url($path_in) }}" alt="" class="foto"></td>
+                    <td>{{ $prs->jam_out !== null ? $prs->jam_out : 'Belum Absen' }}</td>
+                    <td>
+                        @if ($prs->jam_out !== null)
+                            <img src="{{ url($path_out) }}" alt="" class="foto">
+                        @else
+                            <img src="{{ asset('assets/img/kamera.png') }}" alt="" class="foto">
+                        @endif
+                    </td>
+                    <td>
+                        @if ($menit_terlambat > 0)
+                            Terlambat {{ $menit_terlambat }} menit | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br>
+                            {{ $prs->kegiatan }}
+                        @else
+                            Tepat Waktu | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br> {{ $prs->kegiatan }}
+                        @endif
+                    </td>
+                </tr>
             @endforeach
         </table>
-
-
         <table width="100%" style="margin-top: 100px">
             <tr>
-                <td colspan="2" style="text-align: right">Jakarta Selatan, {{ date('d-m-Y') }}</td>
+                <td colspan="2" style="text-align: right">Malang, {{ date('d-m-Y') }}</td>
             </tr>
             <tr>
                 <td style="text-align: center; vertical-align:bottom" height="100">
-                    <u>Ranu</u><br>
-                    <i><b>HRG Manager</b></i>
+                    <u>Pak Muslih</u><br>
+                    <i><b>Hakim Pembimbing Magang</b></i>
                 </td>
                 <td style="text-align: center; vertical-align:bottom">
-                    <u>Antariksa Artidi</u><br>
-                    <i><b>Direktur</b></i>
+                    <u>Pak ....</u><br>
+                    <i><b>Hakim Koordinator Magang</b></i>
                 </td>
             </tr>
         </table>
     </section>
-
 </body>
 
 </html>
