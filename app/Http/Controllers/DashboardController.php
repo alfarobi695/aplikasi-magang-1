@@ -14,18 +14,18 @@ class DashboardController extends Controller
         $hariini = date('Y-m-d');
         $bulanini = date('m') * 1;
         $tahunini = date('Y');
-        $nik = Auth::guard('mahasiswa')->user()->nik;
+        $nim = Auth::guard('mahasiswa')->user()->nik;
 
         $presensihariini = Presensi::where('tgl_presensi', $hariini)
-            ->where('nik', $nik)->first();
+            ->where('nim', $nim)->first();
 
-        $historybulanini = Presensi::where('nik', $nik)
+        $historybulanini = Presensi::where('nim', $nim)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->orderBy('tgl_presensi')->get();
 
-        $rekappresensi = Presensi::selectRaw('COUNT(nik) as jmlhadir, SUM(IF(jam_in > "07:30", 1, 0)) as jmlterlambat')
-            ->where('nik', $nik)
+        $rekappresensi = Presensi::selectRaw('COUNT(nim) as jmlhadir, SUM(IF(jam_in > "07:30", 1, 0)) as jmlterlambat')
+            ->where('nim', $nim)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->first();
@@ -39,7 +39,7 @@ class DashboardController extends Controller
             ->selectRaw('SUM(IF(status="i",1,0)) as jml_izin, SUM(IF(status="s",1,0)) as jml_sakit')
             ->whereRaw('MONTH(tgl_izin)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_izin)="' . $tahunini . '"')
-            ->where('nik', $nik)
+            ->where('nim', $nim)
             ->where('status_approved', 1)
             ->first();
 
@@ -62,7 +62,7 @@ class DashboardController extends Controller
     {
         $hariini = date('Y-m-d');
         $rekappresensi = DB::table('presensi')
-            ->selectRaw('COUNT(nik) as jmlhadir, SUM(IF(jam_in > "07:30", 1, 0)) as jmlterlambat')
+            ->selectRaw('COUNT(nim) as jmlhadir, SUM(IF(jam_in > "07:30", 1, 0)) as jmlterlambat')
             ->where('tgl_presensi', $hariini)
             ->first();
 

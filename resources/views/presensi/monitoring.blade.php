@@ -49,7 +49,7 @@
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>NIK</th>
+                                            <th>NIM</th>
                                             <th>NAMA MAHASISWA</th>
                                             <th>DEPARTMENT</th>
                                             <th>JAM MASUK</th>

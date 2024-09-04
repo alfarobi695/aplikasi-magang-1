@@ -103,8 +103,8 @@
                                             <path d="M19 11l0 2" />
                                         </svg>
                                     </span>
-                                    <input type="text" name="nik" id="nik" class="form-control"
-                                        placeholder="NIM" value="{{ Request('nim') }}">
+                                    <input type="text" name="nim" id="nim" class="form-control"
+                                        placeholder="Nim" value="{{ Request('nim') }}">
                                 </div>
                             </div>
                             <div class="col-3">
@@ -180,7 +180,7 @@
 
                                     <td class="text-secondary">
                                         <h5 class="d-inline">{{ $d->mahasiswa->nama_lengkap }}
-                                            <span class="badge bg-cyan-lt">{{ $d->nik }}</span>
+                                            <span class="badge bg-cyan-lt">{{ $d->nim }}</span>
                                         </h5>
                                     </td>
                                     <td class="text-secondary">

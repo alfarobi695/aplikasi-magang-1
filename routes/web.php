@@ -40,7 +40,7 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 
     // Edit Profile
     Route::get('/editprofile', [PresensiController::class, 'editprofile']);
-    Route::post('/presensi/{nik}/updateprofile', [PresensiController::class, 'updateprofile']);
+    Route::post('/presensi/{nim}/updateprofile', [PresensiController::class, 'updateprofile']);
 
     // Histori
     Route::get('/presensi/histori', [PresensiController::class, 'histori']);
@@ -70,8 +70,8 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
     Route::post('/mahasiswa/store', [MahasiswaController::class, 'store']);
     Route::post('/mahasiswa/edit', [MahasiswaController::class, 'edit']);
-    Route::post('/mahasiswa/{nik}/update', [MahasiswaController::class, 'update']);
-    Route::delete('/mahasiswa/delete/{nik}', [MahasiswaController::class, 'delete']);
+    Route::post('/mahasiswa/{nim}/update', [MahasiswaController::class, 'update']);
+    Route::delete('/mahasiswa/delete/{nim}', [MahasiswaController::class, 'delete']);
 
     // Department
     Route::get('/department', [DepartmentController::class, 'index']);

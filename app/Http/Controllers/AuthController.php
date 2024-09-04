@@ -10,10 +10,10 @@ class AuthController extends Controller
 {
     public function proseslogin(Request $request)
     {
-        if (Auth::guard('mahasiswa')->attempt(['nik' => $request->nik, 'password' => $request->password])) {
+        if (Auth::guard('karyawan')->attempt(['nim' => $request->nim, 'password' => $request->password])) {
             return redirect()->to('/dashboard');
         } else {
-            return redirect('/')->with(['warning' => 'Nik / Password Salah']);
+            return redirect('/')->with(['warning' => 'nim / Password Salah']);
         }
     }
 

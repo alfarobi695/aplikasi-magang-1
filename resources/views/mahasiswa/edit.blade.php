@@ -1,4 +1,4 @@
-<form action="/mahasiswa/{{ $mahasiswa->nik }}/update" method="POST" id="frmMahasiswa" enctype="multipart/form-data">
+<form action="/mahasiswa/{{ $mahasiswa->nim }}/update" method="POST" id="frmMahasiswa" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
         <div class="input-icon mb-3">
@@ -17,8 +17,8 @@
                     <path d="M19 11l0 2"></path>
                 </svg>
             </span>
-            <input type="text" name="nik" id="nik" class="form-control" value="{{ $mahasiswa->nik }}"
-                placeholder="NIK">
+            <input type="text" name="nim" id="nim" class="form-control" value="{{ $mahasiswa->nim }}"
+                placeholder="NIM">
         </div>
     </div>
     <div class="mb-3">

@@ -12,7 +12,7 @@ class Pengajuan extends Model
     protected $table = 'pengajuan_izin';
 
     protected $fillable = [
-        'nik',
+        'nim',
         'tgl_izin',
         'status',
         'keterangan',
@@ -22,14 +22,14 @@ class Pengajuan extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class, 'nik', 'nik');
+        return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
     }
 
     public function scopeSearch(
         $query,
         $dari = '',
         $sampai = '',
-        $nik = '',
+        $nim = '',
         $nama_karyawan = '',
         $status_approved = '',
     ) {
@@ -37,8 +37,8 @@ class Pengajuan extends Model
             ->when($dari && $sampai, function ($query) use ($dari, $sampai) {
                 return $query->whereBetween('tgl_izin', [$dari, $sampai]);
             })
-            ->when($nik, function ($query, $nik) {
-                return $query->where('nik', 'LIKE', "%$nik%");
+            ->when($nim, function ($query, $nim) {
+                return $query->where('nim', 'LIKE', "%$nim%");
             })
             ->when($nama_karyawan, function ($query, $nama_karyawan) {
                 // Pastikan bahwa 'mahasiswa' adalah nama relasi pada model Pengajuan
