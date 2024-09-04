@@ -75,15 +75,17 @@ class PresensiController extends Controller
 
 
 
-        if ($radius > 40) {
+        if ($radius > 55) {
             echo "error|Maaf anda berada diluar radius, jarak anda " . $radius . " meter dari kantor|radius";
         } else {
             if ($cek > 0) {
                 // Pulang
+                $kegiatan = $request->kegiatan;
                 $data_pulang = [
                     'jam_out' => $jam,
                     'foto_out' => $fileName,
                     'lokasi_out' => $lokasi,
+                    'kegiatan' => $kegiatan
                 ];
                 //$simpanData = Presensi::where('tgl_presensi', $tgl_presensi)->where('nim', $nim)->update($data_pulang);menggunakan update at dan created at
                 $simpanData = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nim', $nim)->update($data_pulang);
@@ -286,5 +288,41 @@ class PresensiController extends Controller
         $cek = Pengajuan::where('nim', $nim)->where('tgl_izin', $tgl_izin)->count();
 
         return $cek;
+    }
+
+    public function laporan()
+    {
+        $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        $karyawan = DB::table('karyawan')->orderBy('nama_lengkap')->get();
+        return view('presensi.laporan', compact('namabulan', 'karyawan'));
+    }
+
+    public function cetaklaporan(Request $request)
+    {
+        $nik = $request->nik;
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        $karyawan = DB::table('karyawan')->where('nik', $nik)
+        ->join('department', 'karyawan.kode_dept', '=', 'department.kode_dept')
+        ->first();
+
+        $presensi = DB::table('presensi')
+            ->where('nik', $nik)
+            ->whereRaw('MONTH(tgl_presensi)="'. $bulan .'"')
+            ->whereRaw('YEAR(tgl_presensi)="'. $tahun .'"')
+            ->orderBy('tgl_presensi')
+            ->get();
+
+        if(isset($_POST['exportexcel']))
+        {
+            $time = date("d-M-Y H:i:s");
+            header("Content-Type: application/vnd-ms-excel");
+
+            header("Content-Disposition: attachment; filename=Laporan Presensi Karyawan $time.xls");
+
+            return view('presensi.cetaklaporanexcel', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
+        }
+        return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
     }
 }
