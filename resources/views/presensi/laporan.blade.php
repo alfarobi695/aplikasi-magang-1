@@ -51,10 +51,10 @@
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <select class="form-select" name="nik" id="nik">
+                                        <select class="form-select" name="nim" id="nim">
                                             <option value="">Pilih Mahasiswa</option>
                                             @foreach ($mahasiswa as $kry)
-                                                <option value="{{ $kry->nik }}">{{ $kry->nama_lengkap }}</option>
+                                                <option value="{{ $kry->nim }}">{{ $kry->nama_lengkap }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -103,7 +103,7 @@
             $("#formlaporan").submit(function(e){
                 var bulan = $("#bulan").val();
                 var tahun = $("#tahun").val();
-                var nik = $("#nik").val();
+                var nim = $("#nim").val();
                 
                 if(bulan==""){
                     Swal.fire({
@@ -125,14 +125,14 @@
                         $("#tahun").focus();
                     });
                     return false;
-                } else if(nik==""){
+                } else if(nim==""){
                     Swal.fire({
                     title: 'Warning !',
-                    text: 'Nik Harus Diisi !!!',
+                    text: 'Nim Harus Diisi !!!',
                     icon: 'warning',
                     confirmButtonText: 'OK'
                     }).then((result)=> {
-                        $("#nik").focus();
+                        $("#nim").focus();
                     });
                     return false;
                 }

@@ -125,7 +125,7 @@
                 <p>PROGRAM STUDI D-IV TEKNIK INFORMATIKA</p>
                 <br>
                 <p style="text-transform:uppercase">{{ $mahasiswa->nama_lengkap }}</p>
-                <p>NIM : {{ $mahasiswa->nik }}</p>
+                <p>NIM : {{ $mahasiswa->nim }}</p>
             </div>
         </div>
         <table class="tabelpresensi">
@@ -154,7 +154,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ date("d-m-y", strtotime($prs->tgl_presensi)) }}</td>
-                    <td>{{ $prs->nik }}</td>
+                    <td>{{ $prs->nim }}</td>
                     <td>{{ $prs->jam_in }}</td>
                     <td><img src="{{ url($path_in) }}" alt="" class="foto"></td>
                     <td>{{ $prs->jam_out !== null ? $prs->jam_out : 'Belum Absen' }}</td>

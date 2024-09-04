@@ -14,7 +14,7 @@ class DashboardController extends Controller
         $hariini = date('Y-m-d');
         $bulanini = date('m') * 1;
         $tahunini = date('Y');
-        $nim = Auth::guard('mahasiswa')->user()->nik;
+        $nim = Auth::guard('mahasiswa')->user()->nim;
 
         $presensihariini = Presensi::where('tgl_presensi', $hariini)
             ->where('nim', $nim)->first();
@@ -30,7 +30,7 @@ class DashboardController extends Controller
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->first();
 
-        $leaderboard = Presensi::with('mahasiswa:nik,nama_lengkap,jabatan')
+        $leaderboard = Presensi::with('mahasiswa:nim,nama_lengkap,jabatan')
             ->where("tgl_presensi", $hariini)
             ->orderBy('jam_in')
             ->get();

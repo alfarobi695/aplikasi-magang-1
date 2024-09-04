@@ -146,7 +146,7 @@
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration + $mahasiswa->firstitem() - 1 }}</td>
-                                                <td>{{ $d->nik }}</td>
+                                                <td>{{ $d->nim }}</td>
                                                 <td>{{ $d->nama_lengkap }}</td>
                                                 <td>{{ $d->jabatan }}</td>
                                                 <td>{{ $d->no_hp }}</td>
@@ -374,7 +374,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "/mahasiswa/delete/" + nik,
+                            url: "/mahasiswa/delete/" + nim,
                             cache: false,
                             data: {
                                 _token: "{{ csrf_token() }}",
@@ -424,7 +424,7 @@
             });
 
             $('#frmMahasiswa').submit(function() {
-                let nik = $('#nik').val()
+                let nim = $('#nim').val()
                 let nama_lengkap = $('#nama_lengkap').val()
                 let jabatan = $('#jabatan').val()
                 let no_hp = $('#no_hp').val()

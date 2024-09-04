@@ -299,16 +299,16 @@ class PresensiController extends Controller
 
     public function cetaklaporan(Request $request)
     {
-        $nik = $request->nik;
+        $nim = $request->nim;
         $bulan = $request->bulan;
         $tahun = $request->tahun;
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $mahasiswa = DB::table('mahasiswa')->where('nik', $nik)
+        $mahasiswa = DB::table('mahasiswa')->where('nim', $nim)
         ->join('department', 'mahasiswa.kode_dept', '=', 'department.kode_dept')
         ->first();
 
         $presensi = DB::table('presensi')
-            ->where('nik', $nik)
+            ->where('nim', $nim)
             ->whereRaw('MONTH(tgl_presensi)="'. $bulan .'"')
             ->whereRaw('YEAR(tgl_presensi)="'. $tahun .'"')
             ->orderBy('tgl_presensi')
