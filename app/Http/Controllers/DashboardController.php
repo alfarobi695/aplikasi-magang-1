@@ -30,7 +30,7 @@ class DashboardController extends Controller
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->first();
 
-        $leaderboard = Presensi::with('mahasiswa:nim,nama_lengkap,jabatan')
+        $leaderboard = Presensi::with('mahasiswa:nim,nama_lengkap,program_studi')
             ->where("tgl_presensi", $hariini)
             ->orderBy('jam_in')
             ->get();

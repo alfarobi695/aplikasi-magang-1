@@ -34,7 +34,7 @@ class MahasiswaController extends Controller
     {
         $nim = $request->nim;
         $nama_lengkap = $request->nama_lengkap;
-        $jabatan = $request->jabatan;
+        $program_studi = $request->program_studi;
         $no_hp = $request->no_hp;
         $kode_dept = $request->kode_dept;
         $foto = $request->foto;
@@ -42,7 +42,7 @@ class MahasiswaController extends Controller
         $data = [
             'nim' => $nim,
             'nama_lengkap' => $nama_lengkap,
-            'jabatan' => $jabatan,
+            'program_studi' => $program_studi,
             'no_hp' => $no_hp,
             'kode_dept' => $kode_dept,
             'password' => Hash::make('12345'),
@@ -79,7 +79,7 @@ class MahasiswaController extends Controller
     {
         $nim = $request->nim;
         $nama_lengkap = $request->nama_lengkap;
-        $jabatan = $request->jabatan;
+        $program_studi = $request->program_studi;
         $no_hp = $request->no_hp;
         $kode_dept = $request->kode_dept;
         $old_foto = $request->old_foto;
@@ -92,7 +92,7 @@ class MahasiswaController extends Controller
 
         $data = [
             'nama_lengkap' => $nama_lengkap,
-            'jabatan' => $jabatan,
+            'program_studi' => $program_studi,
             'no_hp' => $no_hp,
             'kode_dept' => $kode_dept,
             'password' => Hash::make('12345'),

@@ -51,8 +51,8 @@
                     <path d="M8 12l3 -3l2 2l3 -3"></path>
                 </svg>
             </span>
-            <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ $mahasiswa->jabatan }}"
-                placeholder="Jabatan">
+            <input type="text" name="program_studi" id="program_studi" class="form-control" value="{{ $mahasiswa->program_studi }}"
+                placeholder="program_studi">
         </div>
     </div>
     <div class="mb-3">

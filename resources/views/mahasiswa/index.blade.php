@@ -148,7 +148,7 @@
                                                 <td>{{ $loop->iteration + $mahasiswa->firstitem() - 1 }}</td>
                                                 <td>{{ $d->nim }}</td>
                                                 <td>{{ $d->nama_lengkap }}</td>
-                                                <td>{{ $d->jabatan }}</td>
+                                                <td>{{ $d->program_studi }}</td>
                                                 <td>{{ $d->no_hp }}</td>
                                                 <td>
                                                     @if (empty($d->foto))
@@ -279,8 +279,8 @@
                                         <path d="M8 12l3 -3l2 2l3 -3"></path>
                                     </svg>
                                 </span>
-                                <input type="text" name="jabatan" id="jabatan" class="form-control"
-                                    placeholder="Jabatan">
+                                <input type="text" name="program_studi" id="program_studi" class="form-control"
+                                    placeholder="program_studi">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -426,7 +426,7 @@
             $('#frmMahasiswa').submit(function() {
                 let nim = $('#nim').val()
                 let nama_lengkap = $('#nama_lengkap').val()
-                let jabatan = $('#jabatan').val()
+                let program_studi = $('#program_studi').val()
                 let no_hp = $('#no_hp').val()
                 let kode_dept = $('#frmMahasiswa').find('#kode_dept').val()
 
@@ -452,14 +452,14 @@
                     })
 
                     return false
-                } else if (jabatan == '') {
+                } else if (program_studi == '') {
                     Swal.fire({
                         title: 'Oops!',
                         text: 'Jabtan Harus Diisi',
                         icon: 'warning',
                         confirmButtonText: 'Ok'
                     }).then(() => {
-                        $('#jabatan').focus()
+                        $('#program_studi').focus()
                     })
 
                     return false
