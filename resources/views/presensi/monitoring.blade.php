@@ -50,7 +50,7 @@
                                         <tr>
                                             <th>NO</th>
                                             <th>NIK</th>
-                                            <th>NAMA KARYAWAN</th>
+                                            <th>NAMA MAHASISWA</th>
                                             <th>DEPARTMENT</th>
                                             <th>JAM MASUK</th>
                                             <th>FOTO</th>

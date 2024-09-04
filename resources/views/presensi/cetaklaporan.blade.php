@@ -124,8 +124,8 @@
                 <p>JURUSAN TEKNOLOGI INFORMASI</p>
                 <p>PROGRAM STUDI D-IV TEKNIK INFORMATIKA</p>
                 <br>
-                <p style="text-transform:uppercase">{{ $karyawan->nama_lengkap }}</p>
-                <p>NIM : {{ $karyawan->nik }}</p>
+                <p style="text-transform:uppercase">{{ $mahasiswa->nama_lengkap }}</p>
+                <p>NIM : {{ $mahasiswa->nik }}</p>
             </div>
         </div>
         <table class="tabelpresensi">

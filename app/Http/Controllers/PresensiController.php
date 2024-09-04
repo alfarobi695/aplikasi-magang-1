@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Karyawan;
+use App\Models\Mahasiswa;
 use App\Models\Pengajuan;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class PresensiController extends Controller
     public function create()
     {
         $hariini = date('Y-m-d');
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nik = Auth::guard('mahasiswa')->user()->nik;
 
         $cek = Presensi::where('tgl_presensi', $hariini)
             ->where('nik', $nik)->count();
@@ -29,7 +29,7 @@ class PresensiController extends Controller
 
     public function store(Request $request)
     {
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nik = Auth::guard('mahasiswa')->user()->nik;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
 
@@ -138,27 +138,27 @@ class PresensiController extends Controller
 
     public function editprofile()
     {
-        $nik = Auth::guard('karyawan')->user()->nik;
-        $karyawan = Karyawan::where('nik', $nik)->first();
+        $nik = Auth::guard('mahasiswa')->user()->nik;
+        $mahasiswa = Mahasiswa::where('nik', $nik)->first();
 
         return view('presensi.editprofile', [
-            'karyawan' => $karyawan
+            'mahasiswa' => $mahasiswa
         ]);
     }
 
     public function updateprofile(Request $request)
     {
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nik = Auth::guard('mahasiswa')->user()->nik;
         $nama_lengkap = $request->nama_lengkap;
         $no_hp = $request->no_hp;
         $password = Hash::make($request->password);
 
-        $dt_karyawan = Karyawan::where('nik', $nik)->first();
+        $dt_mahasiswa = Mahasiswa::where('nik', $nik)->first();
 
         if ($request->hasFile('foto')) {
             $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
-            $foto = $dt_karyawan->foto;
+            $foto = $dt_mahasiswa->foto;
         }
 
         if (empty($request->password)) {
@@ -176,10 +176,10 @@ class PresensiController extends Controller
             ];
         }
 
-        $update = Karyawan::where('nik', $nik)->update($data);
+        $update = Mahasiswa::where('nik', $nik)->update($data);
         if ($update) {
             if ($request->hasFile('foto')) {
-                $folderPath = 'public/upload/karyawan';
+                $folderPath = 'public/upload/mahasiswa';
                 $request->file('foto')->storeAs($folderPath, $foto);
             }
 
@@ -202,7 +202,7 @@ class PresensiController extends Controller
     {
         $bulan = $request->bulan;
         $tahun = $request->tahun;
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nik = Auth::guard('mahasiswa')->user()->nik;
 
         // echo $bulan . "" . $tahun;
 
@@ -219,7 +219,7 @@ class PresensiController extends Controller
 
     public function izin()
     {
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nik = Auth::guard('mahasiswa')->user()->nik;
         $dataizin = DB::table('pengajuan_izin')->where('nik', $nik)->get();
         return view('presensi.izin', [
             'dataizin' => $dataizin
@@ -233,7 +233,7 @@ class PresensiController extends Controller
 
     public function storeizin(Request $request)
     {
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nik = Auth::guard('mahasiswa')->user()->nik;
         $status = $request->status;
         $tgl_izin = $request->tgl_izin;
         $keterangan = $request->keterangan;
@@ -262,7 +262,7 @@ class PresensiController extends Controller
     public function getpresensi(Request $request)
     {
         $tanggal = $request->tanggal;
-        $presensi = Presensi::with('karyawan.department')->where('tgl_presensi', $tanggal)->get();
+        $presensi = Presensi::with('mahasiswa.department')->where('tgl_presensi', $tanggal)->get();
 
         return view('presensi.getpresensi', [
             'presensi' => $presensi
@@ -272,7 +272,7 @@ class PresensiController extends Controller
     public function showmaps(Request $request)
     {
         $id = $request->id;
-        $presensi = Presensi::with('karyawan')->where('id', $id)->first();
+        $presensi = Presensi::with('mahasiswa')->where('id', $id)->first();
 
         return view('presensi.showmaps', [
             'presensi' => $presensi
@@ -282,7 +282,7 @@ class PresensiController extends Controller
     public function cekpengajuanizin(Request $request)
     {
         $tgl_izin = $request->tgl_izin;
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nik = Auth::guard('mahasiswa')->user()->nik;
 
         $cek = Pengajuan::where('nik', $nik)->where('tgl_izin', $tgl_izin)->count();
 
@@ -292,8 +292,8 @@ class PresensiController extends Controller
     public function laporan()
     {
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $karyawan = DB::table('karyawan')->orderBy('nama_lengkap')->get();
-        return view('presensi.laporan', compact('namabulan', 'karyawan'));
+        $mahasiswa = DB::table('mahasiswa')->orderBy('nama_lengkap')->get();
+        return view('presensi.laporan', compact('namabulan', 'mahasiswa'));
     }
 
     public function cetaklaporan(Request $request)
@@ -302,8 +302,8 @@ class PresensiController extends Controller
         $bulan = $request->bulan;
         $tahun = $request->tahun;
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $karyawan = DB::table('karyawan')->where('nik', $nik)
-        ->join('department', 'karyawan.kode_dept', '=', 'department.kode_dept')
+        $mahasiswa = DB::table('mahasiswa')->where('nik', $nik)
+        ->join('department', 'mahasiswa.kode_dept', '=', 'department.kode_dept')
         ->first();
 
         $presensi = DB::table('presensi')
@@ -318,10 +318,10 @@ class PresensiController extends Controller
             $time = date("d-M-Y H:i:s");
             header("Content-Type: application/vnd-ms-excel");
 
-            header("Content-Disposition: attachment; filename=Laporan Presensi Karyawan $time.xls");
+            header("Content-Disposition: attachment; filename=Laporan Presensi Mahasiswa $time.xls");
 
-            return view('presensi.cetaklaporanexcel', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
+            return view('presensi.cetaklaporanexcel', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'presensi'));
         }
-        return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
+        return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'presensi'));
     }
 }

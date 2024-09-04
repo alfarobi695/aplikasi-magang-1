@@ -103,8 +103,8 @@
                                             <path d="M19 11l0 2" />
                                         </svg>
                                     </span>
-                                    <input type="text" name="nik" id="nik" class="form-control"
-                                        placeholder="Nik" value="{{ Request('nik') }}">
+                                    <input type="text" name="nim" id="nim" class="form-control"
+                                        placeholder="NIM" value="{{ Request('nim') }}">
                                 </div>
                             </div>
                             <div class="col-3">
@@ -120,7 +120,7 @@
                                         </svg>
                                     </span>
                                     <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control"
-                                        placeholder="Nama Karyawan" value="{{ Request('nama_karyawan') }}">
+                                        placeholder="Nama Mahasiswa" value="{{ Request('nama_karyawan') }}">
                                 </div>
                             </div>
                             <div class="col-3">
@@ -128,11 +128,11 @@
                                     <select class="form-select" name="status_approved" id="status_approved">
                                         <option value="">Pilih Status</option>
                                         <option value="0" {{ Request('status_approved') == '0' ? 'selected' : '' }}>
-                                            Pending</option>
+                                            Tertunda</option>
                                         <option value="1" {{ Request('status_approved') == 1 ? 'selected' : '' }}>
-                                            Approved</option>
+                                            Disetujui</option>
                                         <option value="2" {{ Request('status_approved') == 2 ? 'selected' : '' }}>
-                                            Decline</option>
+                                            Ditolak</option>
                                     </select>
                                 </div>
 
@@ -164,8 +164,8 @@
                                 <th>NO</th>
                                 <th>NAMA</th>
                                 <th>TGL IZIN</th>
-                                <th style="width: 40%;">KETEANGAN</th>
-                                <th>STATUS APPROVED</th>
+                                <th style="width: 40%;">KETERANGAN</th>
+                                <th>STATUS DISETUJUI</th>
                                 <th style="width: 7%; text-align: center">
                                     AKSI
                                 </th>
@@ -179,7 +179,7 @@
                                     </td>
 
                                     <td class="text-secondary">
-                                        <h5 class="d-inline">{{ $d->karyawan->nama_lengkap }}
+                                        <h5 class="d-inline">{{ $d->mahasiswa->nama_lengkap }}
                                             <span class="badge bg-cyan-lt">{{ $d->nik }}</span>
                                         </h5>
                                     </td>
@@ -191,11 +191,11 @@
                                     </td>
                                     <td class="text-secondary">
                                         @if ($d->status_approved == 0)
-                                            <span class="badge badge-outline text-blue">Pending</span>
+                                            <span class="badge badge-outline text-blue">Tertunda</span>
                                         @elseif ($d->status_approved == 1)
-                                            <span class="badge badge-outline text-green">Approved</span>
+                                            <span class="badge badge-outline text-green">Disetujui</span>
                                         @else
-                                            <span class="badge badge-outline text-red">Decline</span>
+                                            <span class="badge badge-outline text-red">Ditolak</span>
                                         @endif
                                     </td>
                                     <td style="text-align: center">

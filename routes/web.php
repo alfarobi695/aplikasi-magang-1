@@ -4,7 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\KantorController;
-use App\Http\Controllers\KaryawanController;
+
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Posisi user tidak login
-Route::middleware(['guest:karyawan'])->group(function () {
+Route::middleware(['guest:mahasiswa'])->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     })->name('login');
@@ -29,7 +30,7 @@ Route::middleware(['guest:karyawan'])->group(function () {
 });
 
 // Posisi user login
-Route::middleware(['auth:karyawan'])->group(function () {
+Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/proseslogout', [AuthController::class, 'proseslogout']);
 
@@ -65,12 +66,12 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/proseslogoutadmin', [AuthController::class, 'proseslogoutadmin']);
     Route::get('/panel/dashboardadmin', [DashboardController::class, 'dashboardadmin']);
 
-    // Karyawan
-    Route::get('/karyawan', [KaryawanController::class, 'index']);
-    Route::post('/karyawan/store', [KaryawanController::class, 'store']);
-    Route::post('/karyawan/edit', [KaryawanController::class, 'edit']);
-    Route::post('/karyawan/{nik}/update', [KaryawanController::class, 'update']);
-    Route::delete('/karyawan/delete/{nik}', [KaryawanController::class, 'delete']);
+    // Mahasiswa
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+    Route::post('/mahasiswa/store', [MahasiswaController::class, 'store']);
+    Route::post('/mahasiswa/edit', [MahasiswaController::class, 'edit']);
+    Route::post('/mahasiswa/{nik}/update', [MahasiswaController::class, 'update']);
+    Route::delete('/mahasiswa/delete/{nik}', [MahasiswaController::class, 'delete']);
 
     // Department
     Route::get('/department', [DepartmentController::class, 'index']);

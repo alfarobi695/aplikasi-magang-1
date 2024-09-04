@@ -52,8 +52,8 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <select class="form-select" name="nik" id="nik">
-                                            <option value="">Pilih Karyawan</option>
-                                            @foreach ($karyawan as $kry)
+                                            <option value="">Pilih Mahasiswa</option>
+                                            @foreach ($mahasiswa as $kry)
                                                 <option value="{{ $kry->nik }}">{{ $kry->nama_lengkap }}</option>
                                             @endforeach
                                         </select>

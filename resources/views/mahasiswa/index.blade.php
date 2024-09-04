@@ -10,7 +10,7 @@
                         Master Data
                     </div>
                     <h2 class="page-title">
-                        Data Karyawan
+                        Data Mahasiswa
                     </h2>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                                     <path d="M12 5l0 14"></path>
                                     <path d="M5 12l14 0"></path>
                                 </svg>
-                                Tambah Karyawan
+                                Tambah Mahasiswa
                             </a>
                         </div>
                     </div>
@@ -84,11 +84,11 @@
                     <div class="card mt-2">
                         <div class="card-body d-flex flex-column gap-3">
                             <div>
-                                <form action="/karyawan" method="GET">
+                                <form action="/mahasiswa" method="GET">
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Nama Karyawan"
+                                                <input type="text" class="form-control" placeholder="Nama Mahasiswa"
                                                     name="nama_karyawan" id="nama_karyawan"
                                                     value="{{ Request('nama_karyawan') }}">
                                             </div>
@@ -129,9 +129,9 @@
                                     <thead>
                                         <tr>
                                             <td>No</td>
-                                            <td>NIK</td>
+                                            <td>NIM</td>
                                             <td>Nama</td>
-                                            <td>Jabtan</td>
+                                            <td>Program Studi</td>
                                             <td>No. HP</td>
                                             <td>Foto</td>
                                             <td>Department</td>
@@ -139,12 +139,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($karyawan as $d)
+                                        @foreach ($mahasiswa as $d)
                                             @php
-                                                $path = Storage::url('upload/karyawan/' . $d->foto);
+                                                $path = Storage::url('upload/mahasiswa/' . $d->foto);
                                             @endphp
                                             <tr>
-                                                <td>{{ $loop->iteration + $karyawan->firstitem() - 1 }}</td>
+                                                <td>{{ $loop->iteration + $mahasiswa->firstitem() - 1 }}</td>
                                                 <td>{{ $d->nik }}</td>
                                                 <td>{{ $d->nama_lengkap }}</td>
                                                 <td>{{ $d->jabatan }}</td>
@@ -201,7 +201,7 @@
                                     </tbody>
                                 </table>
 
-                                {{ $karyawan->links('vendor.pagination.bootstrap-5') }}
+                                {{ $mahasiswa->links('vendor.pagination.bootstrap-5') }}
                             </div>
 
                         </div>
@@ -213,15 +213,15 @@
     </div>
 
     {{-- Modal Input --}}
-    <div class="modal modal-blur fade" id="modal-inputkaryawan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal modal-blur fade" id="modal-inputmahasiswa" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Data Karyawan</h5>
+                    <h5 class="modal-title">Add Data Mahasiswa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/karyawan/store" method="POST" id="frmKaryawan" enctype="multipart/form-data">
+                    <form action="/mahasiswa/store" method="POST" id="frmMahasiswa" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <div class="input-icon mb-3">
@@ -334,11 +334,11 @@
         </div>
     </div>
     {{-- Modal Edit --}}
-    <div class="modal modal-blur fade" id="modal-editkaryawan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal modal-blur fade" id="modal-editmahasiswa" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Data Karyawan</h5>
+                    <h5 class="modal-title">Edit Data Mahasiswa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="loadeditForm">
@@ -355,7 +355,7 @@
 
             $('#btnAddKar').click(function(e) {
                 e.preventDefault();
-                $('#modal-inputkaryawan').modal("show");
+                $('#modal-inputmahasiswa').modal("show");
             });
 
             $('.delete').click(function(e) {
@@ -373,7 +373,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "/karyawan/delete/" + nik,
+                            url: "/mahasiswa/delete/" + nik,
                             cache: false,
                             data: {
                                 _token: "{{ csrf_token() }}",
@@ -409,7 +409,7 @@
                 let nik = $(this).attr('nik');
                 $.ajax({
                     type: "POST",
-                    url: "/karyawan/edit",
+                    url: "/mahasiswa/edit",
                     cache: false,
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -419,15 +419,15 @@
                         $('#loadeditForm').html(response);
                     }
                 });
-                $('#modal-editkaryawan').modal("show");
+                $('#modal-editmahasiswa').modal("show");
             });
 
-            $('#frmKaryawan').submit(function() {
+            $('#frmMahasiswa').submit(function() {
                 let nik = $('#nik').val()
                 let nama_lengkap = $('#nama_lengkap').val()
                 let jabatan = $('#jabatan').val()
                 let no_hp = $('#no_hp').val()
-                let kode_dept = $('#frmKaryawan').find('#kode_dept').val()
+                let kode_dept = $('#frmMahasiswa').find('#kode_dept').val()
 
                 if (nik == '') {
                     Swal.fire({

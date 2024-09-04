@@ -31,6 +31,6 @@
 
     var popupPres = L.popup()
         .setLatLng([lokLat, lokLon])
-        .setContent("{{ $presensi->karyawan->nama_lengkap }}")
+        .setContent("{{ $presensi->mahasiswa->nama_lengkap }}")
         .openOn(mapPresensi);
 </script>

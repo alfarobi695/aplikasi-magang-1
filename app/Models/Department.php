@@ -18,8 +18,8 @@ class Department extends Model
         'nama_dept',
     ];
 
-    public function karyawan()
+    public function mahasiswa()
     {
-        return $this->hasOne(Karyawan::class, 'kode_dept', 'kode_dept');
+        return $this->hasOne(Mahasiswa::class, 'kode_dept', 'kode_dept');
     }
 }

@@ -70,7 +70,7 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="/kantor/store" method="POST" id="frmKaryawan" enctype="multipart/form-data">
+                    <form action="/kantor/store" method="POST" id="frmMahasiswa" enctype="multipart/form-data">
                         @csrf
                         <div class="d-flex gap-4">
                             <div class="w-full">

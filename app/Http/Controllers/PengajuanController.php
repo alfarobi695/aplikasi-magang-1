@@ -19,7 +19,7 @@ class PengajuanController extends Controller
         $nama_karyawan = $request->nama_karyawan;
         $status_approved = $request->status_approved;
 
-        $pengajuan = Pengajuan::with('karyawan')
+        $pengajuan = Pengajuan::with('mahasiswa')
             ->search($dari, $sampai, $nik, $nama_karyawan, $status_approved)
             ->where('status', 's')->orderBy('tgl_izin', 'desc')->paginate(2)->appends($request->all());
 
@@ -32,7 +32,7 @@ class PengajuanController extends Controller
     {
         $id = $request->id;
 
-        $pengajuan = Pengajuan::with('karyawan')->where('id', $id)->first();
+        $pengajuan = Pengajuan::with('mahasiswa')->where('id', $id)->first();
         return view('pengajuan.sakit.edit', [
             'pengajuan' => $pengajuan
         ]);
@@ -79,7 +79,7 @@ class PengajuanController extends Controller
         $nama_karyawan = $request->nama_karyawan;
         $status_approved = $request->status_approved;
 
-        $pengajuan = Pengajuan::with('karyawan')
+        $pengajuan = Pengajuan::with('mahasiswa')
             ->search($dari, $sampai, $nik, $nama_karyawan, $status_approved)
             ->where('status', 'i')->orderBy('tgl_izin', 'desc')->paginate(2)->appends($request->all());
 
@@ -92,7 +92,7 @@ class PengajuanController extends Controller
     {
         $id = $request->id;
 
-        $pengajuan = Pengajuan::with('karyawan')
+        $pengajuan = Pengajuan::with('mahasiswa')
             ->where('id', $id)->first();
         return view('pengajuan.izin.edit', [
             'pengajuan' => $pengajuan

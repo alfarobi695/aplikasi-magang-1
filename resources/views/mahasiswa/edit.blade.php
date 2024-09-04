@@ -1,4 +1,4 @@
-<form action="/karyawan/{{ $karyawan->nik }}/update" method="POST" id="frmKaryawan" enctype="multipart/form-data">
+<form action="/mahasiswa/{{ $mahasiswa->nik }}/update" method="POST" id="frmMahasiswa" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
         <div class="input-icon mb-3">
@@ -17,7 +17,7 @@
                     <path d="M19 11l0 2"></path>
                 </svg>
             </span>
-            <input type="text" name="nik" id="nik" class="form-control" value="{{ $karyawan->nik }}"
+            <input type="text" name="nik" id="nik" class="form-control" value="{{ $mahasiswa->nik }}"
                 placeholder="NIK">
         </div>
     </div>
@@ -33,7 +33,7 @@
                 </svg>
             </span>
             <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control"
-                value="{{ $karyawan->nama_lengkap }}" placeholder="Nama Lengkap">
+                value="{{ $mahasiswa->nama_lengkap }}" placeholder="Nama Lengkap">
         </div>
     </div>
     <div class="mb-3">
@@ -51,7 +51,7 @@
                     <path d="M8 12l3 -3l2 2l3 -3"></path>
                 </svg>
             </span>
-            <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ $karyawan->jabatan }}"
+            <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ $mahasiswa->jabatan }}"
                 placeholder="Jabatan">
         </div>
     </div>
@@ -67,7 +67,7 @@
                     </path>
                 </svg>
             </span>
-            <input type="text" name="no_hp" id="no_hp" value="{{ $karyawan->no_hp }}" class="form-control"
+            <input type="text" name="no_hp" id="no_hp" value="{{ $mahasiswa->no_hp }}" class="form-control"
                 placeholder="No Hanphone">
         </div>
     </div>
@@ -75,7 +75,7 @@
         <select name="kode_dept" id="kode_dept" class="form-select">
             <option value="">Pilih Department</option>
             @foreach ($department as $d)
-                <option value="{{ $d->kode_dept }}" {{ $karyawan->kode_dept == $d->kode_dept ? 'selected' : '' }}>
+                <option value="{{ $d->kode_dept }}" {{ $mahasiswa->kode_dept == $d->kode_dept ? 'selected' : '' }}>
                     {{ $d->nama_dept }}
                 </option>
             @endforeach
@@ -84,7 +84,7 @@
     <div class="mb-3">
         <div class="input-icon mb-3">
             <input name="foto" type="file" class="form-control">
-            <input type="hidden" name="old_foto" value="{{ $karyawan->foto }}">
+            <input type="hidden" name="old_foto" value="{{ $mahasiswa->foto }}">
         </div>
     </div>
     <div class="mb-3">

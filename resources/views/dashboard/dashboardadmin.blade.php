@@ -43,7 +43,7 @@
                                         {{ $rekappresensi->jmlhadir ? $rekappresensi->jmlhadir : 0 }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Hadir
+                                        Mahasiswa Hadir
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                         {{ $rekapizin->jml_izin ? $rekapizin->jml_izin : 0 }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Izin
+                                        Mahasiswa Izin
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                         {{ $rekapizin->jml_sakit ? $rekapizin->jml_sakit : 0 }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Sakit
+                                        Mahasiswa Sakit
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                         {{ $rekappresensi->jmlterlambat ? $rekappresensi->jmlterlambat : 0 }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Terlambat
+                                        Mahasiswa Terlambat
                                     </div>
                                 </div>
                             </div>

@@ -23,8 +23,8 @@ class Presensi extends Model
         'lokasi_out',
     ];
 
-    public function karyawan(): BelongsTo
+    public function mahasiswa(): BelongsTo
     {
-        return $this->belongsTo(Karyawan::class, 'nik', 'nik');
+        return $this->belongsTo(Mahasiswa::class, 'nik', 'nik');
     }
 }

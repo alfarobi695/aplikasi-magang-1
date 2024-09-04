@@ -70,7 +70,7 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="/kantor/update/{{ $kantor->id }}" method="POST" id="frmKaryawan"
+                    <form action="/kantor/update/{{ $kantor->id }}" method="POST" id="frmMahasiswa"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="d-flex gap-4">

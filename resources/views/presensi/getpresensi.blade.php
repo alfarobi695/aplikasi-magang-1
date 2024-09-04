@@ -23,8 +23,8 @@
     <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $d->nik }}</td>
-        <td>{{ $d->karyawan->nama_lengkap }}</td>
-        <td>{{ $d->karyawan->department->nama_dept }}</td>
+        <td>{{ $d->mahasiswa->nama_lengkap }}</td>
+        <td>{{ $d->mahasiswa->department->nama_dept }}</td>
         <td>{!! $d->jam_in != null ? $d->jam_in : '<span class="badge bg-red text-red-fg">Belum Masuk</span>' !!}</td>
         <td><img src="{{ url($foto_in) }}" class="avatar" alt="foto_in"></td>
         <td>{!! $d->jam_out != null ? $d->jam_out : '<span class="badge bg-red text-red-fg">Belum Absen</span>' !!}</td>

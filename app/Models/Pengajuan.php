@@ -20,9 +20,9 @@ class Pengajuan extends Model
     ];
 
 
-    public function karyawan()
+    public function mahasiswa()
     {
-        return $this->belongsTo(Karyawan::class, 'nik', 'nik');
+        return $this->belongsTo(Mahasiswa::class, 'nik', 'nik');
     }
 
     public function scopeSearch(
@@ -41,8 +41,8 @@ class Pengajuan extends Model
                 return $query->where('nik', 'LIKE', "%$nik%");
             })
             ->when($nama_karyawan, function ($query, $nama_karyawan) {
-                // Pastikan bahwa 'karyawan' adalah nama relasi pada model Pengajuan
-                return $query->whereHas('karyawan', function ($q) use ($nama_karyawan) {
+                // Pastikan bahwa 'mahasiswa' adalah nama relasi pada model Pengajuan
+                return $query->whereHas('mahasiswa', function ($q) use ($nama_karyawan) {
                     $q->where('nama_lengkap', 'LIKE', "%$nama_karyawan%");
                 });
             })

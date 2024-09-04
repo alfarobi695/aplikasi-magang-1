@@ -4,9 +4,9 @@
     <div class="section" id="user-section">
         <div id="user-detail">
             <div class="avatar">
-                @if (!empty(Auth::guard('karyawan')->user()->foto))
+                @if (!empty(Auth::guard('mahasiswa')->user()->foto))
                     @php
-                        $path = Storage::url('upload/karyawan/' . Auth::guard('karyawan')->user()->foto);
+                        $path = Storage::url('upload/mahasiswa/' . Auth::guard('mahasiswa')->user()->foto);
                     @endphp
                 <img src="{{ url($path) }}" alt="avatar" class="imaged w64 rounded">
                 @else
@@ -14,8 +14,8 @@
                 @endif
             </div>
             <div id="user-info">
-                <h2 id="user-name">{{ Auth::guard('karyawan')->user()->nama_lengkap }}</h2>
-                <span id="user-role">{{ Auth::guard('karyawan')->user()->jabatan }}</span>
+                <h2 id="user-name">{{ Auth::guard('mahasiswa')->user()->nama_lengkap }}</h2>
+                <span id="user-role">{{ Auth::guard('mahasiswa')->user()->jabatan }}</span>
             </div>
         </div>
     </div>
@@ -219,9 +219,9 @@
                                     <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                                     <div class="in">
                                         <div>
-                                            <b>{{ $d->karyawan->nama_lengkap }}</b>
+                                            <b>{{ $d->mahasiswa->nama_lengkap }}</b>
                                             <br>
-                                            <small class="text-muted">{{ $d->karyawan->jabatan }}</small>
+                                            <small class="text-muted">{{ $d->mahasiswa->jabatan }}</small>
                                         </div>
                                         <span
                                             class="badge {{ $d->jam_in < '07:30' ? 'badge-success' : 'badge-danger' }}">{{ $d->jam_in }}</span>

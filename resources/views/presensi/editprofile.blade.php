@@ -35,18 +35,18 @@
             @endif
         </div>
     </div>
-    <form action="/presensi/{{ $karyawan->nik }}/updateprofile" method="POST" enctype="multipart/form-data">
+    <form action="/presensi/{{ $mahasiswa->nik }}/updateprofile" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col">
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" value="{{ $karyawan->nama_lengkap }}" name="nama_lengkap"
+                    <input type="text" class="form-control" value="{{ $mahasiswa->nama_lengkap }}" name="nama_lengkap"
                         placeholder="Nama Lengkap" autocomplete="off">
                 </div>
             </div>
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" value="{{ $karyawan->no_hp }}" name="no_hp"
+                    <input type="text" class="form-control" value="{{ $mahasiswa->no_hp }}" name="no_hp"
                         placeholder="No. HP" autocomplete="off">
                 </div>
             </div>

@@ -223,7 +223,7 @@
                         </span>
                     </a>
                 </li>
-                <!-- Data master karyawan -->
+                <!-- Data master mahasiswa -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">
@@ -250,8 +250,8 @@
                                 <a class="dropdown-item" href="/department">
                                     Data Department
                                 </a>
-                                <a class="dropdown-item" href="/karyawan">
-                                    Data Karyawan
+                                <a class="dropdown-item" href="/mahasiswa">
+                                    Data Mahasiswa
                                 </a>
                                 <a class="dropdown-item" href="/kantor">
                                     Data Kantor
@@ -260,7 +260,7 @@
                         </div>
                     </div>
                 </li>
-                <!-- end data master karyawan -->
+                <!-- end data master mahasiswa -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">

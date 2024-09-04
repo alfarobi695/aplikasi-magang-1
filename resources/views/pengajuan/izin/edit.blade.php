@@ -2,14 +2,14 @@
     @csrf
     <div class="row mb-3 align-items-end">
         <div class="col-3">
-            <label class="form-label">NIK</label>
+            <label class="form-label">NIM</label>
             <input type="text" name="nik" class="form-control bg-black text-white cursor-pointer"
                 value="{{ $pengajuan->nik }}" readonly />
         </div>
         <div class="col">
-            <label class="form-label">Name</label>
+            <label class="form-label">Nama</label>
             <input name="nama_lengkap" type="text" class="form-control bg-black text-white cursor-pointer"
-                value="{{ $pengajuan->karyawan->nama_lengkap }}" readonly />
+                value="{{ $pengajuan->mahasiswa->nama_lengkap }}" readonly />
         </div>
     </div>
     <div class="mb-3">
@@ -19,15 +19,15 @@
     </div>
     <div class="row mb-3 align-items-end">
         <div class="col-5">
-            <div class="form-label">Status Approved</div>
+            <div class="form-label">Status Disetujui</div>
             <select name="status_approved" class="form-select">
-                <option value="1" {{ $pengajuan->status_approved == '1' ? 'selected' : '' }}>Approved
+                <option value="1" {{ $pengajuan->status_approved == '1' ? 'selected' : '' }}>Disetujui
                 </option>
-                <option value="2" {{ $pengajuan->status_approved == '2' ? 'selected' : '' }}>Decline</option>
+                <option value="2" {{ $pengajuan->status_approved == '2' ? 'selected' : '' }}>Ditolak</option>
             </select>
         </div>
         <div class="col">
-            <div class="form-label">Tanggal Approved</div>
+            <div class="form-label">Tanggal Disetujui</div>
             <div class="input-icon">
                 <input name="tgl_approved" class="form-control datepicker-icon" placeholder="Select a date">
                 <span class="input-icon-addon">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-between">
-        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Tutup</button>
         <button type="submit" class="btn btn-primary">Update</button>
     </div>
 
