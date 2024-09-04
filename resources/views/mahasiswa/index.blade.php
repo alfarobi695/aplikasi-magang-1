@@ -89,8 +89,8 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Nama Mahasiswa"
-                                                    name="nama_karyawan" id="nama_karyawan"
-                                                    value="{{ Request('nama_karyawan') }}">
+                                                    name="nama_mahasiswa" id="nama_mahasiswa"
+                                                    value="{{ Request('nama_mahasiswa') }}">
                                             </div>
                                         </div>
                                         <div class="col-4">

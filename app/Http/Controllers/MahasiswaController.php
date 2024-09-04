@@ -14,7 +14,7 @@ class MahasiswaController extends Controller
 {
     public function index(Request $request)
     {
-        $nama_lengkap = $request->nama_karyawan;
+        $nama_lengkap = $request->nama_mahasiswa;
         $kode_dept = $request->kode_dept;
 
         $mahasiswa = Mahasiswa::with('department')

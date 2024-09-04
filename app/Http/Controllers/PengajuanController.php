@@ -16,11 +16,11 @@ class PengajuanController extends Controller
         $dari = $request->dari;
         $sampai = $request->sampai;
         $nim = $request->nim;
-        $nama_karyawan = $request->nama_karyawan;
+        $nama_mahasiswa = $request->nama_mahasiswa;
         $status_approved = $request->status_approved;
 
         $pengajuan = Pengajuan::with('mahasiswa')
-            ->search($dari, $sampai, $nim, $nama_karyawan, $status_approved)
+            ->search($dari, $sampai, $nim, $nama_mahasiswa, $status_approved)
             ->where('status', 's')->orderBy('tgl_izin', 'desc')->paginate(2)->appends($request->all());
 
         return view('pengajuan.sakit.index', [
@@ -76,11 +76,11 @@ class PengajuanController extends Controller
         $dari = $request->dari;
         $sampai = $request->sampai;
         $nim = $request->nim;
-        $nama_karyawan = $request->nama_karyawan;
+        $nama_mahasiswa = $request->nama_mahasiswa;
         $status_approved = $request->status_approved;
 
         $pengajuan = Pengajuan::with('mahasiswa')
-            ->search($dari, $sampai, $nim, $nama_karyawan, $status_approved)
+            ->search($dari, $sampai, $nim, $nama_mahasiswa, $status_approved)
             ->where('status', 'i')->orderBy('tgl_izin', 'desc')->paginate(2)->appends($request->all());
 
         return view('pengajuan.izin.index', [

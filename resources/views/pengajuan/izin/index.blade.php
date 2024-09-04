@@ -119,8 +119,8 @@
                                             <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                                         </svg>
                                     </span>
-                                    <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control"
-                                        placeholder="Nama Mahasiswa" value="{{ Request('nama_karyawan') }}">
+                                    <input type="text" name="nama_mahasiswa" id="nama_mahasiswa" class="form-control"
+                                        placeholder="Nama Mahasiswa" value="{{ Request('nama_mahasiswa') }}">
                                 </div>
                             </div>
                             <div class="col-3">

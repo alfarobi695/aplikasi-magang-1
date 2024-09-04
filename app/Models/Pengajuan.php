@@ -30,7 +30,7 @@ class Pengajuan extends Model
         $dari = '',
         $sampai = '',
         $nim = '',
-        $nama_karyawan = '',
+        $nama_mahasiswa = '',
         $status_approved = '',
     ) {
         $query
@@ -40,10 +40,10 @@ class Pengajuan extends Model
             ->when($nim, function ($query, $nim) {
                 return $query->where('nim', 'LIKE', "%$nim%");
             })
-            ->when($nama_karyawan, function ($query, $nama_karyawan) {
+            ->when($nama_mahasiswa, function ($query, $nama_mahasiswa) {
                 // Pastikan bahwa 'mahasiswa' adalah nama relasi pada model Pengajuan
-                return $query->whereHas('mahasiswa', function ($q) use ($nama_karyawan) {
-                    $q->where('nama_lengkap', 'LIKE', "%$nama_karyawan%");
+                return $query->whereHas('mahasiswa', function ($q) use ($nama_mahasiswa) {
+                    $q->where('nama_lengkap', 'LIKE', "%$nama_mahasiswa%");
                 });
             })
             ->when(true, function ($query) use ($status_approved) {

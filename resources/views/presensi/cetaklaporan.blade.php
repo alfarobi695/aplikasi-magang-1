@@ -15,10 +15,6 @@
             font-weight: bold;
         }
 
-        .tabeldatakaryawan tr td {
-            margin-top: 30px;
-        }
-
         .tabelpresensi {
             width: 100%;
             margin-top: 20px;
