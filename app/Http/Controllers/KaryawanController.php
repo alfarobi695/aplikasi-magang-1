@@ -32,7 +32,7 @@ class KaryawanController extends Controller
 
     public function store(Request $request)
     {
-        $nik = $request->nik;
+        $nim = $request->nim;
         $nama_lengkap = $request->nama_lengkap;
         $jabatan = $request->jabatan;
         $no_hp = $request->no_hp;
@@ -40,20 +40,20 @@ class KaryawanController extends Controller
         $foto = $request->foto;
 
         $data = [
-            'nik' => $nik,
+            'nim' => $nim,
             'nama_lengkap' => $nama_lengkap,
             'jabatan' => $jabatan,
             'no_hp' => $no_hp,
             'kode_dept' => $kode_dept,
             'password' => Hash::make('12345'),
-            'foto' => $foto != '' ? $nik . ".png" : '',
+            'foto' => $foto != '' ? $nim . ".png" : '',
         ];
 
         $simpan = Karyawan::create($data);
         if ($simpan) {
             if ($foto != '') {
                 $folderPath = 'public/upload/karyawan/';
-                $fileName = $nik . ".png";
+                $fileName = $nim . ".png";
                 $request->file('foto')->storeAs($folderPath, $fileName);
             }
             return Redirect::back()->with(['success' => 'Data berhasil di simpan']);
@@ -64,9 +64,9 @@ class KaryawanController extends Controller
 
     public function edit(Request $request)
     {
-        $nik = $request->nik;
+        $nim = $request->nim;
         $karyawan = Karyawan::with('department')
-            ->where('nik', $nik)->first();
+            ->where('nim', $nim)->first();
 
         $department = Department::get();
         return view('karyawan.edit', [
@@ -75,9 +75,9 @@ class KaryawanController extends Controller
         ]);
     }
 
-    public function update($nik, Request $request)
+    public function update($nim, Request $request)
     {
-        $nik = $request->nik;
+        $nim = $request->nim;
         $nama_lengkap = $request->nama_lengkap;
         $jabatan = $request->jabatan;
         $no_hp = $request->no_hp;
@@ -85,7 +85,7 @@ class KaryawanController extends Controller
         $old_foto = $request->old_foto;
 
         if ($request->hasFile('foto')) {
-            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $foto = $nim . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
             $foto = $old_foto;
         }
@@ -96,16 +96,16 @@ class KaryawanController extends Controller
             'no_hp' => $no_hp,
             'kode_dept' => $kode_dept,
             'password' => Hash::make('12345'),
-            'foto' => $foto != '' ? $nik . ".png" : '',
+            'foto' => $foto != '' ? $nim . ".png" : '',
         ];
 
-        $update = Karyawan::where('nik', $nik)->update($data);
+        $update = Karyawan::where('nim', $nim)->update($data);
         if ($update) {
             if ($request->hasFile('foto')) {
                 $folderPath = 'public/upload/karyawan/';
                 $folderPathOld = 'public/upload/karyawan/' . $old_foto;
                 Storage::delete($folderPathOld);
-                $fileName = $nik . ".png";
+                $fileName = $nim . ".png";
                 $request->file('foto')->storeAs($folderPath, $fileName);
             }
             return Redirect::back()->with(['success' => 'Data berhasil di update']);
@@ -114,10 +114,10 @@ class KaryawanController extends Controller
         }
     }
 
-    public function delete($nik, Request $request)
+    public function delete($nim, Request $request)
     {
-        $nik = $request->nik;
-        $karyawan = Karyawan::find($nik);
+        $nim = $request->nim;
+        $karyawan = Karyawan::find($nim);
         if ($karyawan) {
             $karyawan->delete();
             return Response::json(['success' => 'Data berhasil di hapus'], 200);

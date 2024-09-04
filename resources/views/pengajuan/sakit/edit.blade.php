@@ -2,9 +2,9 @@
     @csrf
     <div class="row mb-3 align-items-end">
         <div class="col-3">
-            <label class="form-label">NIK</label>
-            <input type="text" name="nik" class="form-control bg-black text-white cursor-pointer"
-                value="{{ $pengajuan->nik }}" readonly />
+            <label class="form-label">NIM</label>
+            <input type="text" name="nim" class="form-control bg-black text-white cursor-pointer"
+                value="{{ $pengajuan->nim }}" readonly />
         </div>
         <div class="col">
             <label class="form-label">Name</label>

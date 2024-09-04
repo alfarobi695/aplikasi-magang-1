@@ -39,7 +39,7 @@ Route::middleware(['auth:karyawan'])->group(function () {
 
     // Edit Profile
     Route::get('/editprofile', [PresensiController::class, 'editprofile']);
-    Route::post('/presensi/{nik}/updateprofile', [PresensiController::class, 'updateprofile']);
+    Route::post('/presensi/{nim}/updateprofile', [PresensiController::class, 'updateprofile']);
 
     // Histori
     Route::get('/presensi/histori', [PresensiController::class, 'histori']);
@@ -69,8 +69,8 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/karyawan', [KaryawanController::class, 'index']);
     Route::post('/karyawan/store', [KaryawanController::class, 'store']);
     Route::post('/karyawan/edit', [KaryawanController::class, 'edit']);
-    Route::post('/karyawan/{nik}/update', [KaryawanController::class, 'update']);
-    Route::delete('/karyawan/delete/{nik}', [KaryawanController::class, 'delete']);
+    Route::post('/karyawan/{nim}/update', [KaryawanController::class, 'update']);
+    Route::delete('/karyawan/delete/{nim}', [KaryawanController::class, 'delete']);
 
     // Department
     Route::get('/department', [DepartmentController::class, 'index']);

@@ -35,7 +35,7 @@
             @endif
         </div>
     </div>
-    <form action="/presensi/{{ $karyawan->nik }}/updateprofile" method="POST" enctype="multipart/form-data">
+    <form action="/presensi/{{ $karyawan->nim }}/updateprofile" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col">
             <div class="form-group boxed">

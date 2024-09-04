@@ -129,7 +129,7 @@
                                     <thead>
                                         <tr>
                                             <td>No</td>
-                                            <td>NIK</td>
+                                            <td>NIM</td>
                                             <td>Nama</td>
                                             <td>Jabtan</td>
                                             <td>No. HP</td>
@@ -145,7 +145,7 @@
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration + $karyawan->firstitem() - 1 }}</td>
-                                                <td>{{ $d->nik }}</td>
+                                                <td>{{ $d->nim }}</td>
                                                 <td>{{ $d->nama_lengkap }}</td>
                                                 <td>{{ $d->jabatan }}</td>
                                                 <td>{{ $d->no_hp }}</td>
@@ -160,7 +160,7 @@
                                                 <td>{{ $d->department->nama_dept }}</td>
                                                 <td>
                                                     <div class="d-flex gap-2 justify-content-center">
-                                                        <a href="#" class="edit" nik={{ $d->nik }}>
+                                                        <a href="#" class="edit" nim={{ $d->nim }}>
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 class="icon icon-tabler icon-tabler-edit" width="24"
                                                                 height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -177,7 +177,7 @@
                                                                 <path d="M16 5l3 3"></path>
                                                             </svg>
                                                         </a>
-                                                        <a href="#" class="delete" nik={{ $d->nik }}>
+                                                        <a href="#" class="delete" nim={{ $d->nim }}>
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 class="icon icon-tabler icon-tabler-trash" width="24"
                                                                 height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -241,8 +241,8 @@
                                         <path d="M19 11l0 2"></path>
                                     </svg>
                                 </span>
-                                <input type="text" name="nik" id="nik" class="form-control"
-                                    placeholder="NIK">
+                                <input type="text" name="nim" id="nim" class="form-control"
+                                    placeholder="NIM">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -360,7 +360,7 @@
 
             $('.delete').click(function(e) {
                 e.preventDefault();
-                let nik = $(this).attr('nik');
+                let nim = $(this).attr('nim');
 
                 Swal.fire({
                     title: "Do you want to delete",
@@ -373,11 +373,11 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "/karyawan/delete/" + nik,
+                            url: "/karyawan/delete/" + nim,
                             cache: false,
                             data: {
                                 _token: "{{ csrf_token() }}",
-                                nik: nik,
+                                nim: nim,
                             },
                             success: function(response) {
                                 let status = response.success
@@ -406,14 +406,14 @@
 
             $('.edit').click(function(e) {
                 e.preventDefault();
-                let nik = $(this).attr('nik');
+                let nim = $(this).attr('nim');
                 $.ajax({
                     type: "POST",
                     url: "/karyawan/edit",
                     cache: false,
                     data: {
                         _token: "{{ csrf_token() }}",
-                        nik: nik,
+                        nim: nim,
                     },
                     success: function(response) {
                         $('#loadeditForm').html(response);
@@ -423,20 +423,20 @@
             });
 
             $('#frmKaryawan').submit(function() {
-                let nik = $('#nik').val()
+                let nim = $('#nim').val()
                 let nama_lengkap = $('#nama_lengkap').val()
                 let jabatan = $('#jabatan').val()
                 let no_hp = $('#no_hp').val()
                 let kode_dept = $('#frmKaryawan').find('#kode_dept').val()
 
-                if (nik == '') {
+                if (nim == '') {
                     Swal.fire({
                         title: 'Oops!',
-                        text: 'Nik Harus Diisi',
+                        text: 'Nim Harus Diisi',
                         icon: 'warning',
                         confirmButtonText: 'Ok'
                     }).then(() => {
-                        $('#nik').focus()
+                        $('#nim').focus()
                     })
 
                     return false

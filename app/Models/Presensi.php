@@ -13,7 +13,7 @@ class Presensi extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nik',
+        'nim',
         'tgl_presensi',
         'jam_in',
         'jam_out',
@@ -25,6 +25,6 @@ class Presensi extends Model
 
     public function karyawan(): BelongsTo
     {
-        return $this->belongsTo(Karyawan::class, 'nik', 'nik');
+        return $this->belongsTo(Karyawan::class, 'nim', 'nim');
     }
 }
