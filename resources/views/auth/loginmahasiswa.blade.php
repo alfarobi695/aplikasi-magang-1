@@ -33,7 +33,6 @@
         }
     </style>
 </head>
-
 <body class=" d-flex flex-column">
     <script src="{{ asset('tabler/dist/js/demo-theme.min.js?1692870487') }}"></script>
     <div class="page page-center">
@@ -53,12 +52,12 @@
                                         <p>{{ Session::get('warning') }}</p>
                                     </div>
                                 @endif
-                                <form action="/prosesloginadmin" method="POST" autocomplete="off" novalidate>
+                                <form action="/prosesloginmahasiswa" method="POST" autocomplete="off" novalidate>
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" name="email" class="form-control"
-                                            placeholder="your@email.com" autocomplete="off">
+                                        <label class="form-label">NIM</label>
+                                        <input type="nim" name="nim" class="form-control"
+                                            placeholder="NIM" autocomplete="off">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">
@@ -68,16 +67,15 @@
                                             </span>
                                         </label>
                                         <div class="input-group input-group-flat">
-                                            <input type="password" name="password" class="form-control"
-                                                placeholder="Your password" autocomplete="off">
+                                            <input type="password" class="form-control" placeholder="Password"
+                                                id="password" name="password" required>
                                             <span class="input-group-text">
                                                 <a href="#" class="link-secondary" title="Show password"
-                                                    data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon"
-                                                        width="24" height="24" viewBox="0 0 24 24"
-                                                        stroke-width="2" stroke="currentColor" fill="none"
-                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    id="togglePassword">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="icon">
                                                         <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                                                         <path
                                                             d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
@@ -111,6 +109,27 @@
     <!-- Tabler Core -->
     <script src="{{ asset('tabler/dist/js/tabler.min.js?1692870487') }}" defer></script>
     <script src="{{ asset('tabler/dist/js/demo.min.js?1692870487') }}" defer></script>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        const icon = document.querySelector('#icon');
+
+        togglePassword.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            // Toggle the icon (optional, if you want to change the icon)
+            if (type === 'text') {
+                icon.innerHTML = `<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                              <path d="M1 1l22 22" />`;  // A custom icon or SVG for 'hide password'
+            } else {
+                icon.innerHTML = `<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                              <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />`; // Original eye icon
+            }
+        });
+    </script>
 </body>
 
 </html>

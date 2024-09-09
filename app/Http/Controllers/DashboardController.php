@@ -77,4 +77,9 @@ class DashboardController extends Controller
             'rekapizin' => $rekapizin
         ]);
     }
+
+    public function dashboardmahasiswa(){
+        return view('dashboard.dashboardmahasiswa');
+    }
+
 }

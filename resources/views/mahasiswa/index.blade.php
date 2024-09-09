@@ -130,7 +130,6 @@
                                         <tr>
                                             <td>No</td>
                                             <td>NIM</td>
-                                            <td>NIM</td>
                                             <td>Nama</td>
                                             <td>Program Studi</td>
                                             <td>No. HP</td>
@@ -280,7 +279,7 @@
                                     </svg>
                                 </span>
                                 <input type="text" name="program_studi" id="program_studi" class="form-control"
-                                    placeholder="program_studi">
+                                    placeholder="Program Studi">
                             </div>
                         </div>
                         <div class="mb-3">

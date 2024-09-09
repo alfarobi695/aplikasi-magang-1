@@ -20,21 +20,39 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Posisi user tidak login
+// Posisi mahasiswa tidak login
 Route::middleware(['guest:mahasiswa'])->group(function () {
+    //presensi login
     Route::get('/', function () {
         return view('auth.login');
     })->name('login');
     Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
+    
+    //dashboard mahasiswa login
+    Route::get('/loginmahasiswa', function () {
+        return view('auth.loginmahasiswa');
+    })->name('login');
+    Route::post('/prosesloginmahasiswa', [AuthController::class, 'prosesloginmahasiswa']);
+    
+    //dashboard mahasiswa register
+    Route::get('/register', function () {
+        return view('auth.register');
+    })->name('register');
+    Route::post('/prosesregister', [MahasiswaController::class, 'prosesregister'])->name('prosesregister');
+
 });
 
-// Posisi user login
+// Posisi mahasiswa login
 Route::middleware(['auth:mahasiswa'])->group(function () {
+    //dashboard mahasiswa
+    Route::get('/panel/dashboardmahasiswa', [DashboardController::class, 'dashboardmahasiswa']);
+    Route::get('/proseslogoutmahasiswa', [AuthController::class, 'proseslogoutmahasiswa']);
+
+    // Presensi
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/proseslogout', [AuthController::class, 'proseslogout']);
 
-    // Presensi Absen
+    // Buat Presensi
     Route::get('/presensi/create', [PresensiController::class, 'create']);
     Route::post('/presensi/store', [PresensiController::class, 'store']);
 
@@ -52,6 +70,10 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
 
     Route::post('/presensi/cekpengajuanizin', [PresensiController::class, 'cekpengajuanizin']);
+
+    //dashboard panel
+    Route::get('/dashboardmahasiswa', [DashboardController::class, 'dashboardmahasiswa']);
+
 });
 
 

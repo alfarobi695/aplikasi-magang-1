@@ -26,9 +26,9 @@
 
     <!-- App Capsule -->
     <div id="appCapsule" class="pt-0">
-        <div class="login-form mt-1">
+        <div class="login-form" style="padding: 50px 0px;">
             <div class="section">
-                <img src="{{ asset('assets/logo.jpeg') }}" alt="image" class="form-image" style="" />
+                <img src="{{ asset('assets/logo.jpeg') }}" alt="image" class="form-image" style="width: 100px;" />
             </div>
             <div class="section mt-1">
                 <h1>E-Presensi Magang </h1>

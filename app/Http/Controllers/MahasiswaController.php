@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
+
     public function index(Request $request)
     {
         $nama_lengkap = $request->nama_mahasiswa;
@@ -124,5 +125,69 @@ class MahasiswaController extends Controller
         } else {
             return Redirect::back()->with(['error' => 'Data gagal di update']);
         }
+    }
+
+    public function prosesregister(Request $request)
+    {
+        $mahasiswa = new Mahasiswa();
+        $mahasiswa->nim = $request->nim;
+        $mahasiswa->nama_lengkap = $request->nama_lengkap;
+        $mahasiswa->jenis_kelamin = $request->jenis_kelamin;
+        $mahasiswa->tempat_lahir = $request->tempat_lahir;
+        $mahasiswa->tanggal_lahir = $request->tanggal_lahir;
+        $mahasiswa->alamat_malang = $request->alamat_malang;
+        $mahasiswa->no_hp = $request->no_hp;
+        $mahasiswa->semester_saat_magang = $request->semester_saat_magang;
+        $mahasiswa->ipk_terakhir = $request->ipk_terakhir;
+        $mahasiswa->program_studi = $request->program_studi;
+        $mahasiswa->jurusan = $request->jurusan;
+        $mahasiswa->perguruan_tinggi = $request->perguruan_tinggi;
+        $mahasiswa->durasi_magang = $request->durasi_magang;
+        $mahasiswa->tanggal_mulai_magang = $request->tanggal_mulai_magang;
+        $mahasiswa->surat_pengantar_magang = $request->surat_pengantar_magang;
+        $mahasiswa->proposal_magang = $request->proposal_magang;
+        $mahasiswa->foto = $request->foto != '' ? $request->nim . ".png" : '';
+        $mahasiswa->password = Hash::make($request->password);
+        $mahasiswa->kode_dept = 'IT';
+        $mahasiswa->status_magang = 'Calon';
+
+        if ($mahasiswa->save()) {
+            if ($request->foto != '') {
+                $folderPath = 'public/upload/mahasiswa/';
+                $fileName = $request->nim . ".png";
+                $request->file('foto')->storeAs($folderPath, $fileName);
+            }
+            return Redirect::back()->with(['success' => 'Data berhasil disimpan']);
+        } else {
+            return Redirect::back()->with(['error' => 'Data gagal disimpan']);
+        }
+        // $nim = $request->nim;
+        // $nama_lengkap = $request->nama_lengkap;
+        // $program_studi = $request->program_studi;
+        // $no_hp = $request->no_hp;
+        // $kode_dept = $request->kode_dept;
+        // $foto = $request->foto;
+
+        // $data = [
+        //     'nim' => $nim,
+        //     'nama_lengkap' => $nama_lengkap,
+        //     'program_studi' => $program_studi,
+        //     'no_hp' => $no_hp,
+        //     'kode_dept' => $kode_dept,
+        //     'password' => Hash::make('12345'),
+        //     'foto' => $foto != '' ? $nim . ".png" : '',
+        // ];
+
+        // $simpan = Mahasiswa::create($data);
+        // if ($simpan) {
+        //     if ($foto != '') {
+        //         $folderPath = 'public/upload/mahasiswa/';
+        //         $fileName = $nim . ".png";
+        //         $request->file('foto')->storeAs($folderPath, $fileName);
+        //     }
+        //     return Redirect::back()->with(['success' => 'Data berhasil di simpan']);
+        // } else {
+        //     return Redirect::back()->with(['error' => 'Data gagal di simpan']);
+        // }
     }
 }

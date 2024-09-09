@@ -41,4 +41,12 @@ class AuthController extends Controller
             return redirect('/panel')->with(['warning' => 'Email / Password Salah']);
         }
     }
+    public function prosesloginmahasiswa(Request $request)
+    {
+        if (Auth::guard('mahasiswa')->attempt(['nim' => $request->nim, 'password' => $request->password])) {
+            return redirect()->to('/panel/dashboardmahasiswa');
+        } else {
+            return redirect('/loginmahasiswa')->with(['warning' => 'NIM / Password Salah']);
+        }
+    }
 }
