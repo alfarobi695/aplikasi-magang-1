@@ -1,40 +1,36 @@
 @extends('layouts.dashboardmahasiswa.tabler')
 @section('content')
-    <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        Overview
-                    </div>
-                    <h2 class="page-title">
-                        Dashboard
-                    </h2>
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                    Overview
                 </div>
+                <h2 class="page-title">
+                    Dashboard
+                </h2>
             </div>
         </div>
     </div>
-    <div class="page-body">
-        <div class="container-xl">
-            <div class="row">
-                <div class="col-md-6 col-xl-3 mb-2">
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-md-6 col-xl-3 mb-2">
+                <a href="/editmahasiswa">
                     <div class="card card-sm">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <span
                                         class="bg-success text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-fingerprint" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M18.9 7a8 8 0 0 1 1.1 5v1a6 6 0 0 0 .8 3"></path>
-                                            <path d="M8 11a4 4 0 0 1 8 0v1a10 10 0 0 0 2 6"></path>
-                                            <path d="M12 11v2a14 14 0 0 0 2.5 8"></path>
-                                            <path d="M8 15a18 18 0 0 0 1.8 6"></path>
-                                            <path d="M4.9 19a22 22 0 0 1 -.9 -7v-1a8 8 0 0 1 12 -6.95"></path>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-edit">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+                                            <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" />
                                         </svg>
                                     </span>
                                 </div>
@@ -43,15 +39,18 @@
                                         
                                     </div>
                                     <div class="text-secondary">
-                                        Mahasiswa Hadir
+                                        Data Diri
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+            </div>
 
-                <div class="col-md-6 col-xl-3 mb-2">
+
+            <div class="col-md-6 col-xl-3 mb-2">
+                <a href="/mahasiswa">
                     <div class="card card-sm">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -78,47 +77,47 @@
 
                                     </div>
                                     <div class="text-secondary">
-                                        Mahasiswa Izin
+                                        Rekap Presensi
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+            </div>
 
-                <div class="col-md-6 col-xl-3 mb-2">
+            <div class="col-md-6 col-xl-3 mb-2">
+                <a href="/mahasiswa">
                     <div class="card card-sm">
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <span
-                                        class="bg-warning text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-mood-sick" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M12 21a9 9 0 1 1 0 -18a9 9 0 0 1 0 18z"></path>
-                                            <path d="M9 10h-.01"></path>
-                                            <path d="M15 10h-.01"></path>
-                                            <path d="M8 16l1 -1l1.5 1l1.5 -1l1.5 1l1.5 -1l1 1"></path>
+                                        class="bg-info text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-license">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11" />
+                                            <path d="M9 7l4 0" />
+                                            <path d="M9 11l4 0" />
                                         </svg>
                                     </span>
                                 </div>
                                 <div class="col">
                                     <div class="font-weight-medium">
-                                        
+
                                     </div>
                                     <div class="text-secondary">
-                                        Mahasiswa Sakit
+                                        Rekap Absensi
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+            </div>
 
-                <div class="col-md-6 col-xl-3 mb-2">
+            <div class="col-md-6 col-xl-3 mb-2">
+                <a href="/mahasiswa">
                     <div class="card card-sm">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -144,17 +143,18 @@
                                 </div>
                                 <div class="col">
                                     <div class="font-weight-medium">
-                                        
+
                                     </div>
                                     <div class="text-secondary">
-                                        Mahasiswa Terlambat
+                                        Bimbingan & Evaluasi
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
+</div>
 @endsection

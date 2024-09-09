@@ -79,7 +79,7 @@ class DashboardController extends Controller
     }
 
     public function dashboardmahasiswa(){
-        return view('dashboard.dashboardmahasiswa');
+        return view('panelmahasiswa.dashboardmahasiswa');
     }
 
 }

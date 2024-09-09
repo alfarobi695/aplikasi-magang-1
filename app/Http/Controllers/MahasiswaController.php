@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -189,5 +190,91 @@ class MahasiswaController extends Controller
         // } else {
         //     return Redirect::back()->with(['error' => 'Data gagal di simpan']);
         // }
+    }
+    public function editmahasiswa(Request $request){
+        $nim = Auth::guard('mahasiswa')->user()->nim;
+        $mahasiswa = Mahasiswa::with('department')
+            ->where('nim', $nim)->first();
+
+        $department = Department::get();
+        return view('panelmahasiswa.editmahasiswa', [
+            'mahasiswa' => $mahasiswa,
+            'department' => $department,
+        ]);
+    }
+    public function updatemahasiswa(Request $request)
+    {
+        $nim = $request->nim;
+        $nama_lengkap = $request->nama_lengkap;
+        $jenis_kelamin = $request->jenis_kelamin;
+        $tempat_lahir = $request->tempat_lahir;
+        $tanggal_lahir = $request->tanggal_lahir;
+        $alamat_malang = $request->alamat_malang;
+        $no_hp = $request->no_hp;
+        $semester_saat_magang = $request->semester_saat_magang;
+        $ipk_terakhir = $request->ipk_terakhir;
+        $program_studi = $request->program_studi;
+        $jurusan = $request->jurusan;
+        $perguruan_tinggi = $request->perguruan_tinggi;
+        $durasi_magang = $request->durasi_magang;
+        $tanggal_mulai_magang = $request->tanggal_mulai_magang;
+        $surat_pengantar_magang = $request->surat_pengantar_magang;
+        $proposal_magang = $request->proposal_magang;
+        $old_foto = $request->old_foto;
+        //old password variable fiktif
+        $old_password =Auth::guard('mahasiswa')->user()->password;
+        $kode_dept =Auth::guard('mahasiswa')->user()->kode_dept;
+        // dd($request->foto);
+        // dd($request->old_foto);
+
+        if ($request->hasFile('foto')) {
+            $foto = $nim . "." . $request->file('foto')->getClientOriginalExtension();
+            
+        } else {
+            $foto = $old_foto;
+        }
+
+
+        if ($request->filled('password')) {
+            $password = bcrypt($request->input('password')); 
+        } else {
+            $password = $old_password;
+        }
+        
+        $data = [
+            // 'nim' => $nim,
+            'nama_lengkap' => $nama_lengkap,
+            'jenis_kelamin' => $jenis_kelamin,
+            'tempat_lahir' => $tempat_lahir,
+            'tanggal_lahir' => $tanggal_lahir,
+            'alamat_malang' => $alamat_malang,
+            'no_hp' => $no_hp,
+            'semester_saat_magang' => $semester_saat_magang,
+            'ipk_terakhir' => $ipk_terakhir,
+            'program_studi' => $program_studi,
+            'jurusan' => $jurusan,
+            'perguruan_tinggi' => $perguruan_tinggi,
+            'durasi_magang' => $durasi_magang,
+            'tanggal_mulai_magang' => $tanggal_mulai_magang,
+            'surat_pengantar_magang' => $surat_pengantar_magang,
+            'proposal_magang' => $proposal_magang,
+            'kode_dept'=> $kode_dept,
+            'password' => $password,
+            'foto' => $foto != '' ? $nim . ".png" : '',
+        ];
+
+        $update = Mahasiswa::where('nim', $nim)->update($data);
+        if ($update) {
+            if ($request->hasFile('foto')) {
+                $folderPath = 'public/upload/mahasiswa/';
+                $folderPathOld = 'public/upload/mahasiswa/' . $old_foto;
+                Storage::delete($folderPathOld);
+                $fileName = $nim . ".png";
+                $request->file('foto')->storeAs($folderPath, $fileName);
+            }
+            return Redirect::back()->with(['success' => 'Data berhasil di update']);
+        } else {
+            return Redirect::back()->with(['error' => 'Data gagal di update']);
+        }
     }
 }

@@ -325,4 +325,5 @@ class PresensiController extends Controller
         }
         return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'presensi'));
     }
+
 }
