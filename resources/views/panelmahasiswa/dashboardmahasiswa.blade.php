@@ -18,7 +18,7 @@
 <div class="page-body">
     <div class="container-xl">
         <div class="row">
-            <div class="col-md-6 col-xl-3 mb-2">
+            <div class="col-md-6 col-xl-4 mb-2">
                 <a href="/editmahasiswa">
                     <div class="card card-sm">
                         <div class="card-body">
@@ -49,8 +49,8 @@
             </div>
 
 
-            <div class="col-md-6 col-xl-3 mb-2">
-                <a href="/mahasiswa">
+            <div class="col-md-6 col-xl-4 mb-2">
+                <a href="/rekappresensi">
                     <div class="card card-sm">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -86,8 +86,8 @@
                 </a>
             </div>
 
-            <div class="col-md-6 col-xl-3 mb-2">
-                <a href="/mahasiswa">
+            <div class="col-md-6 col-xl-4 mb-2">
+                <a href="/rekapabsensi">
                     <div class="card card-sm">
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -108,45 +108,6 @@
                                     </div>
                                     <div class="text-secondary">
                                         Rekap Absensi
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-xl-3 mb-2">
-                <a href="/mahasiswa">
-                    <div class="card card-sm">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <span
-                                        class="bg-danger text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-alarm-filled" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path
-                                                d="M16 6.072a8 8 0 1 1 -11.995 7.213l-.005 -.285l.005 -.285a8 8 0 0 1 11.995 -6.643zm-4 2.928a1 1 0 0 0 -1 1v3l.007 .117a1 1 0 0 0 .993 .883h2l.117 -.007a1 1 0 0 0 .883 -.993l-.007 -.117a1 1 0 0 0 -.993 -.883h-1v-2l-.007 -.117a1 1 0 0 0 -.993 -.883z"
-                                                stroke-width="0" fill="currentColor"></path>
-                                            <path
-                                                d="M6.412 3.191a1 1 0 0 1 1.273 1.539l-.097 .08l-2.75 2a1 1 0 0 1 -1.273 -1.54l.097 -.08l2.75 -2z"
-                                                stroke-width="0" fill="currentColor"></path>
-                                            <path
-                                                d="M16.191 3.412a1 1 0 0 1 1.291 -.288l.106 .067l2.75 2a1 1 0 0 1 -1.07 1.685l-.106 -.067l-2.75 -2a1 1 0 0 1 -.22 -1.397z"
-                                                stroke-width="0" fill="currentColor"></path>
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="col">
-                                    <div class="font-weight-medium">
-
-                                    </div>
-                                    <div class="text-secondary">
-                                        Bimbingan & Evaluasi
                                     </div>
                                 </div>
                             </div>

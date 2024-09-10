@@ -13,7 +13,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <h2 class="page-title">
-                                    <a href="/dashboardmahasiswa">Dashboard</a> / Rekap Presensi
+                                    <a href="/dashboardmahasiswa">Dashboard</a> / Rekap Absensi
                                 </h2>
                             </div>
                         </div>
@@ -40,11 +40,9 @@
                                         <tr>
                                             <th>NO</th>
                                             <th style="width: 100px;">TANGGAL</th>
-                                            <th>JAM MASUK</th>
-                                            <th>FOTO MASUK</th>
-                                            <th>JAM PULANG</th>
-                                            <th>FOTO PULANG</th>
+                                            <th>PENGAJUAN</th>
                                             <th class="text-center">KETERANGAN</th>
+                                            <th>STATUS</th>
                                         </tr>
                                     </thead>
                                     <tbody id="loadpresensi">

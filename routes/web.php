@@ -52,6 +52,10 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::get('/editmahasiswa', [MahasiswaController::class, 'editmahasiswa']);
     Route::post('/updatemahasiswa', [MahasiswaController::class, 'updatemahasiswa']);
 
+    //Rekap Presensi
+    Route::get('/rekappresensi', [MahasiswaController::class, 'rekappresensi']);
+    Route::get('/rekapabsensi', [MahasiswaController::class, 'rekapabsensi']);
+
     // Presensi
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/proseslogout', [AuthController::class, 'proseslogout']);

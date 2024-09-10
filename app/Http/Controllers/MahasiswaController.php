@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Mahasiswa;
+use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use App\Models\Presensi;
 use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
@@ -276,5 +278,25 @@ class MahasiswaController extends Controller
         } else {
             return Redirect::back()->with(['error' => 'Data gagal di update']);
         }
+    }
+    public function rekappresensi(Request $request){
+        $nim =Auth::guard('mahasiswa')->user()->nim;
+
+        $presensi = Presensi::where('nim',$nim)->orderBy('tgl_presensi', 'desc')
+        ->get();
+
+        return view('panelmahasiswa.rekappresensi', [
+            'presensi' => $presensi
+        ]);
+    }
+    public function rekapabsensi(Request $request){
+        $nim =Auth::guard('mahasiswa')->user()->nim;
+
+        $absensi = Pengajuan::where('nim',$nim)->orderBy('tgl_izin', 'desc')
+        ->get();
+
+        return view('panelmahasiswa.rekapabsensi', [
+            'presensi' => $absensi
+        ]);
     }
 }
