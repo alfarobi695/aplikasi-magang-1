@@ -326,4 +326,43 @@ class PresensiController extends Controller
         return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'presensi'));
     }
 
+    public function rekap()
+    {
+        $mahasiswa = DB::table('mahasiswa')->orderBy('nama_lengkap')->get();
+        return view('presensi.rekap', compact('mahasiswa'));
+    }
+
+    public function cetakrekap(Request $request)
+{
+    $nim = $request->nim;
+    $tahun = $request->tahun;
+    
+    // Mengambil data mahasiswa berdasarkan NIM
+    $mahasiswa = DB::table('mahasiswa')
+        ->where('nim', $nim)
+        ->join('department', 'mahasiswa.kode_dept', '=', 'department.kode_dept')
+        ->first();
+
+    // Mengambil data presensi berdasarkan NIM dan tahun
+    $presensi = DB::table('presensi')
+        ->where('nim', $nim)
+        ->whereRaw('YEAR(tgl_presensi) = ?', [$tahun]) // Memfilter berdasarkan tahun saja
+        ->orderBy('tgl_presensi')
+        ->get();
+
+    // Jika melakukan eksport ke Excel
+    if($request->has('exportexcel')) // Menggunakan $request untuk cek inputan
+    {
+        $time = date("d-M-Y H:i:s");
+        header("Content-Type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=Laporan_Presensi_Mahasiswa_$time.xls");
+
+        return view('presensi.cetaklaporanexcel', compact('tahun', 'mahasiswa', 'presensi')); // 'bulan' dan 'namabulan' dihapus
+    }
+
+    // Mengembalikan view cetaklaporan
+    return view('presensi.cetakrekap', compact('tahun', 'mahasiswa', 'presensi')); // 'bulan' dan 'namabulan' dihapus
+}
+
+
 }
