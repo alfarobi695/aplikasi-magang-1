@@ -9,7 +9,9 @@
             </a>
         </div>
         <div class="pageTitle">Edit Profile</div>
-        <div class="right"></div>
+        <div class="right">
+            <a href="/proseslogout" style="color:white; margin-right:10px">Logout</a>
+        </div>
     </div>
     <!-- * App Header -->
 @endsection
