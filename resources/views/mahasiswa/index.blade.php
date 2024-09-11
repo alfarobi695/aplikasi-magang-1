@@ -86,11 +86,22 @@
                             <div>
                                 <form action="/mahasiswa" method="GET">
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-3">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Nama Mahasiswa"
-                                                    name="nama_mahasiswa" id="nama_mahasiswa"
-                                                    value="{{ Request('nama_mahasiswa') }}">
+                                                    name="nama_lengkap" id="nama_lengkap"
+                                                    value="{{ Request('nama_lengkap') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <select name="status_magang" class="form-select">
+                                                    <option value="">Pilih Status Magang</option>
+                                                    <option value="Calon" {{ Request('status_magang') == 'Calon' ? 'selected' : '' }}>Calon</option>
+                                                    <option value="Tidak Lolos" {{ Request('status_magang') == 'Tidak Lolos' ? 'selected' : '' }}>Tidak Lolos</option>
+                                                    <option value="Lolos" {{ Request('status_magang') == 'Lolos' ? 'selected' : '' }}>Lolos</option>
+                                                    <option value="Lulus" {{ Request('status_magang') == 'Lulus' ? 'selected' : '' }}>Lulus</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -127,14 +138,15 @@
                             <div>
                                 <table class="table table-bordered">
                                     <thead>
-                                        <tr>
+                                        <tr style="text-align: center;">
                                             <td>No</td>
                                             <td>NIM</td>
                                             <td>Nama</td>
+                                            <td>Status Magang</td>
                                             <td>Program Studi</td>
                                             <td>No. HP</td>
                                             <td>Foto</td>
-                                            <td>Department</td>
+                                            <td>Ruang</td>
                                             <td>Aksi</td>
                                         </tr>
                                     </thead>
@@ -143,10 +155,11 @@
                                             @php
                                                 $path = Storage::url('upload/mahasiswa/' . $d->foto);
                                             @endphp
-                                            <tr>
+                                            <tr style="text-align: center;">
                                                 <td>{{ $loop->iteration + $mahasiswa->firstitem() - 1 }}</td>
                                                 <td>{{ $d->nim }}</td>
                                                 <td>{{ $d->nama_lengkap }}</td>
+                                                <td>{{ $d->status_magang }}</td>
                                                 <td>{{ $d->program_studi }}</td>
                                                 <td>{{ $d->no_hp }}</td>
                                                 <td>

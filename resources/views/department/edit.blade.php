@@ -34,7 +34,7 @@
                 </svg>
             </span>
             <input type="text" name="nama_dept" id="nama_dept" autofocus value="{{ $department->nama_dept }}"
-                class="form-control" placeholder="Nama Department">
+                class="form-control" placeholder="Nama Ruang">
         </div>
     </div>
     <div class="mb-3">

@@ -10,7 +10,7 @@
                         Master Data
                     </div>
                     <h2 class="page-title">
-                        Data Department
+                        Data Ruang
                     </h2>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                                     <path d="M12 5l0 14"></path>
                                     <path d="M5 12l14 0"></path>
                                 </svg>
-                                Tambah Department
+                                Tambah Ruang
                             </a>
                         </div>
                     </div>
@@ -89,8 +89,8 @@
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>KODE DEPARTMENT</th>
-                                            <th>NAMA DEPARTMENT</th>
+                                            <th>KODE RUANG</th>
+                                            <th>NAMA RUANG</th>
                                             <th style="width: 7%; text-align: center">
                                                 Aksi
                                             </th>
@@ -163,7 +163,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Data Department</h5>
+                    <h5 class="modal-title">Add Data Ruang</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -188,7 +188,7 @@
                                     </svg>
                                 </span>
                                 <input type="text" name="kode_dept" id="kode_dept" class="form-control"
-                                    placeholder="Kode Depertment">
+                                    placeholder="Kode Ruang">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -204,7 +204,7 @@
                                     </svg>
                                 </span>
                                 <input type="text" name="nama_dept" id="nama_dept" class="form-control"
-                                    placeholder="Nama Department">
+                                    placeholder="Nama Ruang">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -231,7 +231,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Data Department</h5>
+                    <h5 class="modal-title">Edit Data Ruang</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="loadeditForm">
@@ -322,7 +322,7 @@
                 if (kode_dept == '') {
                     Swal.fire({
                         title: 'Oops!',
-                        text: 'Kode Department Harus Diisi',
+                        text: 'Kode Ruang Harus Diisi',
                         icon: 'warning',
                         confirmButtonText: 'Ok'
                     }).then(() => {
@@ -333,7 +333,7 @@
                 } else if (nama_dept == '') {
                     Swal.fire({
                         title: 'Oops!',
-                        text: 'Nama Department Harus Diisi',
+                        text: 'Nama Ruang Harus Diisi',
                         icon: 'warning',
                         confirmButtonText: 'Ok'
                     }).then(() => {

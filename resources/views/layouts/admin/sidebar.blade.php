@@ -248,13 +248,13 @@
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item" href="/department">
-                                    Data Department
+                                    Data Ruang
                                 </a>
                                 <a class="dropdown-item" href="/mahasiswa">
                                     Data Mahasiswa
                                 </a>
-                                <a class="dropdown-item" href="/kantor">
-                                    Data Kantor
+                                <a class="dropdown-item" href="/hakim_pembimbing">
+                                    Data Hakim Pembimbing
                                 </a>
                             </div>
                         </div>

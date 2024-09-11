@@ -8,6 +8,7 @@ use App\Models\Presensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\HakimPembimbing;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -302,6 +303,8 @@ class PresensiController extends Controller
         $nim = $request->nim;
         $bulan = $request->bulan;
         $tahun = $request->tahun;
+        $nama_hakim = $request->nama_hakim;
+        $nip = $request->nip;
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
         // Ambil data mahasiswa
@@ -404,9 +407,14 @@ class PresensiController extends Controller
                 }
             }
         }
+        $request->validate([
+            'nama_hakim' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
+        ]);
 
+        HakimPembimbing::create($request->all());
 
-        return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'data_laporan'));
+        return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'data_laporan', 'nama_hakim', 'nip'));
     }
 
 

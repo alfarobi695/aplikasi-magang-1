@@ -184,9 +184,9 @@
                         <br><br> <!-- Ruang untuk tanda tangan -->
                         <br><br> <!-- Ruang untuk tanda tangan -->
                         <b>
-                            <u>MUSLIH HARSONO, S.H., M.H.</u><br>
+                            <u style="text-transform:uppercase">{{ $nama_hakim }}</u><br>
                         </b>
-                        <b>NIP. 19670216 199203 1 002</b>
+                        <b>NIP. {{ $nip }}</b>
                     
                 </td>
                 <td style="text-align: left;padding-left: 5%;">

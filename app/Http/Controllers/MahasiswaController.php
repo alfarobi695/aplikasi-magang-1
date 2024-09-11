@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use App\Models\Presensi;
 use Illuminate\Support\Facades\Storage;
@@ -18,13 +19,23 @@ class MahasiswaController extends Controller
 
     public function index(Request $request)
     {
-        $nama_lengkap = $request->nama_mahasiswa;
+        $nama_lengkap = $request->nama_lengkap;
         $kode_dept = $request->kode_dept;
-
+        $status_magang = $request->status_magang;
         $mahasiswa = Mahasiswa::with('department')
-            ->search($nama_lengkap, $kode_dept)
-            ->orderBy('nama_lengkap')
-            ->paginate(10);
+        ->when($nama_lengkap, function ($query) use ($nama_lengkap) {
+            return $query->where('nama_lengkap', 'LIKE', '%' . $nama_lengkap . '%');
+        })
+        ->when($kode_dept, function ($query) use ($kode_dept) {
+            return $query->where('kode_dept', $kode_dept);
+        })
+        ->when($status_magang, function ($query) use ($status_magang) {
+            return $query->where('status_magang', $status_magang);
+        })
+        ->orderBy('nama_lengkap')
+        ->paginate(30);
+
+
 
         $department = Department::get();
 
@@ -99,6 +110,7 @@ class MahasiswaController extends Controller
             'program_studi' => $program_studi,
             'no_hp' => $no_hp,
             'kode_dept' => $kode_dept,
+            'status_magang' => 'Lolos',
             'password' => Hash::make('12345'),
             'foto' => $foto != '' ? $nim . ".png" : '',
         ];
@@ -132,6 +144,40 @@ class MahasiswaController extends Controller
 
     public function prosesregister(Request $request)
     {
+        $kuota = [
+            'perdata' => 2,
+            'ptsp' => 2,
+            'pidana' => 1,
+            'pp1' => 7,
+            'pp2' => 6,
+            'hukum' => 1,
+        ];
+        // Mendapatkan jumlah mahasiswa per departemen
+        $jumlahMahasiswa = Mahasiswa::select('kode_dept', DB::raw('COUNT(*) as jumlah_mahasiswa'))
+            ->groupBy('kode_dept')
+            ->get()
+            ->keyBy('kode_dept');
+
+        // Menghitung kuota tersisa
+        $kuotaTersisa = [];
+        foreach ($kuota as $kodeDept => $maxKuota) {
+            $jumlah = $jumlahMahasiswa->has($kodeDept) ? $jumlahMahasiswa[$kodeDept]->jumlah_mahasiswa : 0;
+            $kuotaTersisa[$kodeDept] = $maxKuota - $jumlah;
+        }
+
+        // Buat array departemen dengan kuota yang tersisa
+        $departemenTersedia = array_filter($kuotaTersisa, function ($kuota) {
+            return $kuota > 0; // Hanya ambil yang masih ada kuota
+        });
+
+        // Pilih departemen secara acak jika ada yang tersedia
+        if (!empty($departemenTersedia)) {
+            $kodeDept = array_rand($departemenTersedia); // Pilih kunci acak
+        } else {
+            // Handle jika tidak ada departemen yang tersedia
+            $kodeDept = 'belum';
+        }
+
         $mahasiswa = new Mahasiswa();
         $mahasiswa->nim = $request->nim;
         $mahasiswa->nama_lengkap = $request->nama_lengkap;
@@ -151,7 +197,7 @@ class MahasiswaController extends Controller
         $mahasiswa->proposal_magang = $request->proposal_magang;
         $mahasiswa->foto = $request->foto != '' ? $request->nim . ".png" : '';
         $mahasiswa->password = Hash::make($request->password);
-        $mahasiswa->kode_dept = 'IT';
+        $mahasiswa->kode_dept  = $kodeDept;
         $mahasiswa->status_magang = 'Calon';
 
         if ($mahasiswa->save()) {
@@ -193,7 +239,8 @@ class MahasiswaController extends Controller
         //     return Redirect::back()->with(['error' => 'Data gagal di simpan']);
         // }
     }
-    public function editmahasiswa(Request $request){
+    public function editmahasiswa(Request $request)
+    {
         $nim = Auth::guard('mahasiswa')->user()->nim;
         $mahasiswa = Mahasiswa::with('department')
             ->where('nim', $nim)->first();
@@ -224,25 +271,25 @@ class MahasiswaController extends Controller
         $proposal_magang = $request->proposal_magang;
         $old_foto = $request->old_foto;
         //old password variable fiktif
-        $old_password =Auth::guard('mahasiswa')->user()->password;
-        $kode_dept =Auth::guard('mahasiswa')->user()->kode_dept;
+        $old_password = Auth::guard('mahasiswa')->user()->password;
+        $kode_dept = Auth::guard('mahasiswa')->user()->kode_dept;
         // dd($request->foto);
         // dd($request->old_foto);
 
         if ($request->hasFile('foto')) {
             $foto = $nim . "." . $request->file('foto')->getClientOriginalExtension();
-            
+
         } else {
             $foto = $old_foto;
         }
 
 
         if ($request->filled('password')) {
-            $password = bcrypt($request->input('password')); 
+            $password = bcrypt($request->input('password'));
         } else {
             $password = $old_password;
         }
-        
+
         $data = [
             // 'nim' => $nim,
             'nama_lengkap' => $nama_lengkap,
@@ -260,7 +307,7 @@ class MahasiswaController extends Controller
             'tanggal_mulai_magang' => $tanggal_mulai_magang,
             'surat_pengantar_magang' => $surat_pengantar_magang,
             'proposal_magang' => $proposal_magang,
-            'kode_dept'=> $kode_dept,
+            'kode_dept' => $kode_dept,
             'password' => $password,
             'foto' => $foto != '' ? $nim . ".png" : '',
         ];
@@ -279,36 +326,39 @@ class MahasiswaController extends Controller
             return Redirect::back()->with(['error' => 'Data gagal di update']);
         }
     }
-    public function rekappresensi(Request $request){
-        $nim =Auth::guard('mahasiswa')->user()->nim;
+    public function rekappresensi(Request $request)
+    {
+        $nim = Auth::guard('mahasiswa')->user()->nim;
 
-        $presensi = Presensi::where('nim',$nim)->orderBy('tgl_presensi', 'desc')
-        ->get();
+        $presensi = Presensi::where('nim', $nim)->orderBy('tgl_presensi', 'desc')
+            ->get();
 
         return view('panelmahasiswa.rekappresensi', [
             'presensi' => $presensi
         ]);
     }
-    public function rekapabsensi(Request $request){
-        $nim =Auth::guard('mahasiswa')->user()->nim;
+    public function rekapabsensi(Request $request)
+    {
+        $nim = Auth::guard('mahasiswa')->user()->nim;
 
-        $absensi = Pengajuan::where('nim',$nim)->orderBy('tgl_izin', 'desc')
-        ->get();
+        $absensi = Pengajuan::where('nim', $nim)->orderBy('tgl_izin', 'desc')
+            ->get();
 
         return view('panelmahasiswa.rekapabsensi', [
             'presensi' => $absensi
         ]);
     }
 
-    public function beranda(Request $request){
+    public function beranda(Request $request)
+    {
 
-        $tabel  = Mahasiswa::where('status_magang','Lolos')->orderBy('tanggal_mulai_magang', 'desc')
-        ->get();
-        $alokasi  = Mahasiswa::selectRaw('SUM(IF(status_magang="Lolos",1,0)) as jml_mahasiswa')
-        ->first();
+        $tabel = Mahasiswa::where('status_magang', 'Lolos')->orderBy('tanggal_mulai_magang', 'desc')
+            ->get();
+        $alokasi = Mahasiswa::selectRaw('SUM(IF(status_magang="Lolos",1,0)) as jml_mahasiswa')
+            ->first();
         return view('beranda', [
             'tabel' => $tabel,
-            'alokasi'=> $alokasi
+            'alokasi' => $alokasi
         ]);
     }
 }

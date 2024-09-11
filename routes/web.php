@@ -9,6 +9,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HakimPembimbingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +31,13 @@ Route::middleware(['guest:mahasiswa'])->group(function () {
         return view('auth.login');
     })->name('login');
     Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
-    
+
     //dashboard mahasiswa login
     Route::get('/loginmahasiswa', function () {
         return view('auth.loginmahasiswa');
     })->name('login');
     Route::post('/prosesloginmahasiswa', [AuthController::class, 'prosesloginmahasiswa']);
-    
+
     //dashboard mahasiswa register
     Route::get('/register', function () {
         return view('auth.register');
@@ -114,12 +115,30 @@ Route::middleware(['auth:user'])->group(function () {
     Route::delete('/department/destroy/{kode_dept}', [DepartmentController::class, 'destroy']);
 
     // Kantor 
-    Route::get('/kantor', [KantorController::class, 'index']);
-    Route::get('/kantor/create', [KantorController::class, 'create']);
-    Route::post('/kantor/store', [KantorController::class, 'store']);
-    Route::get('/kantor/edit/{id}', [KantorController::class, 'edit']);
-    Route::post('/kantor/update/{id}', [KantorController::class, 'update']);
-    Route::delete('/kantor/destroy/{id}', [KantorController::class, 'destroy']);
+    // Route::get('/kantor', [KantorController::class, 'index']);
+    // Route::get('/kantor/create', [KantorController::class, 'create']);
+    // Route::post('/kantor/store', [KantorController::class, 'store']);
+    // Route::get('/kantor/edit/{id}', [KantorController::class, 'edit']);
+    // Route::post('/kantor/update/{id}', [KantorController::class, 'update']);
+    // Route::delete('/kantor/destroy/{id}', [KantorController::class, 'destroy']);
+
+    // Menampilkan semua data hakim pembimbing
+    Route::get('/hakim_pembimbing', [HakimPembimbingController::class, 'index'])->name('hakim_pembimbing.index');
+
+    // Menampilkan form untuk menambah hakim pembimbing
+    Route::get('/hakim_pembimbing/create', [HakimPembimbingController::class, 'create'])->name('hakim_pembimbing.create');
+
+    // Menyimpan data hakim pembimbing yang baru
+    Route::post('/hakim_pembimbing', [HakimPembimbingController::class, 'store'])->name('hakim_pembimbing.store');
+
+    // Menampilkan form untuk mengedit hakim pembimbing
+    Route::get('/hakim_pembimbing/{hakimPembimbing}/edit', [HakimPembimbingController::class, 'edit'])->name('hakim_pembimbing.edit');
+
+    // Memperbarui data hakim pembimbing
+    Route::put('/hakim_pembimbing/{hakimPembimbing}', [HakimPembimbingController::class, 'update'])->name('hakim_pembimbing.update');
+
+    // Menghapus data hakim pembimbing
+    Route::delete('/hakim_pembimbing/{hakimPembimbing}', [HakimPembimbingController::class, 'destroy'])->name('hakim_pembimbing.destroy');
 
     // Pengajuan (Sakit & Izin)
     //? Sakit  
