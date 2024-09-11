@@ -38,42 +38,42 @@
             width: 40px;
             height: 30px;
         }
-        
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background: #fff;
         }
-        
+
         .header-wrapper {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #000; 
+            border-bottom: 1px solid #000;
         }
-        
+
         .header-wrapper img {
             width: 80px;
             margin-right: 20px;
         }
-        
+
         .header {
             text-align: center;
         }
-        
+
         .header h1 {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 15px;
             margin: 0;
         }
-        
+
         .header p {
             font-size: 11px;
             margin: 0;
         }
-        
+
         .content {
             padding: 0 50px;
         }
@@ -92,7 +92,7 @@
 
     <script>
         // JavaScript to trigger print dialog automatically
-        window.onload = function() {
+        window.onload = function () {
             window.print();
         };
     </script>
@@ -115,10 +115,11 @@
 
         <div class="content">
             <div class="student-info">
-                <p>MONITORING KEGIATAN MAHASISWA MAGANG PERIODE {{ strtoupper($namabulan[$bulan])  }} {{ $tahun }}</p><br/>
-                <p>POLITEKNIK NEGERI MALANG</p>
-                <p>JURUSAN TEKNOLOGI INFORMASI</p>
-                <p>PROGRAM STUDI D-IV TEKNIK INFORMATIKA</p>
+                <p>MONITORING KEGIATAN MAHASISWA MAGANG PERIODE {{ strtoupper($namabulan[$bulan])  }} {{ $tahun }}</p>
+                <br />
+                <p style="text-transform:uppercase">{{ $mahasiswa->perguruan_tinggi }}</p>
+                <p style="text-transform:uppercase">JURUSAN {{ $mahasiswa->jurusan }}</p>
+                <p style="text-transform:uppercase">PROGRAM STUDI {{ $mahasiswa->program_studi }}</p>
                 <br>
                 <p style="text-transform:uppercase">NAMA :{{ $mahasiswa->nama_lengkap }}</p>
                 <p>NIM : {{ $mahasiswa->nim }}</p>
@@ -131,73 +132,76 @@
                 <th>No.</th>
                 <th>Tanggal</th>
                 <th>Jam Masuk</th>
-                <th>Foto</th>
                 <th>Jam Pulang</th>
-                <th>Foto</th>
+                <th>Foto Masuk</th>
+                <th>Foto Pulang</th>
                 <th>Keterangan</th>
             </tr>
-            @foreach ($presensi as $prs)
-                @php
-                    $path_in = Storage::url('upload/absensi/' . $prs->foto_in);
-                    $path_out = Storage::url('upload/absensi/' . $prs->foto_out);
-
-                    $jam_in = strtotime($prs->jam_in);
-                    $jam_out = $prs->jam_out !== null ? strtotime($prs->jam_out) : null;
-                    $total_jam_kerja = $jam_out ? round(($jam_out - $jam_in) / 3600, 2) : 'Belum Absen';
-
-                    $waktu_masuk_normal = strtotime('07:30');
-                    $menit_terlambat = $jam_in > $waktu_masuk_normal ? round(($jam_in - $waktu_masuk_normal) / 60) : 0;
-                @endphp
+            @foreach ($data_laporan as $laporan)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ date("d-m-y", strtotime($prs->tgl_presensi)) }}</td>
-                    <td>{{ $prs->jam_in }}</td>
-                    <td><img src="{{ url($path_in) }}" alt="" class="foto"></td>
-                    <td>{{ $prs->jam_out !== null ? $prs->jam_out : 'Belum Absen' }}</td>
-                    <td>
-                        @if ($prs->jam_out !== null)
-                            <img src="{{ url($path_out) }}" alt="" class="foto">
+                    <td style="text-align: center;">{{ $loop->iteration }}</td>
+                    <td style="white-space: nowrap; word-wrap: break-word;">
+                        {{ date("d-m-Y", strtotime($laporan['tanggal'])) }}
+                    </td>
+                    <td style="text-align: center;">{{ $laporan['jam_in'] ?? 'Belum Absen' }}</td>
+                    <td style="text-align: center;">{{ $laporan['jam_out'] ?? 'Belum Absen' }}</td>
+                    <td style="text-align: center;">
+                        @if ($laporan['foto_in'])
+                            <img src="{{ url(Storage::url('upload/absensi/' . $laporan['foto_in'])) }}" alt="Foto Masuk"
+                                class="foto">
                         @else
-                            <img src="{{ asset('assets/img/kamera.png') }}" alt="" class="foto">
+                            <img src="{{ asset('assets/img/kamera.png') }}" alt="Belum Absen" class="foto">
+                        @endif
+                    </td>
+                    <td style="text-align: center;">
+                        @if ($laporan['foto_out'])
+                            <img src="{{ url(Storage::url('upload/absensi/' . $laporan['foto_out'])) }}" alt="Foto Pulang"
+                                class="foto">
+                        @else
+                            <img src="{{ asset('assets/img/kamera.png') }}" alt="Belum Absen" class="foto">
                         @endif
                     </td>
                     <td>
-                        @if ($menit_terlambat > 0)
-                            Terlambat {{ $menit_terlambat }} menit | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br>
-                            {{ $prs->kegiatan }}
-                        @else
-                            Tepat Waktu | Kerja : {{ $total_jam_kerja }} Jam || Kegiatan : </br> {{ $prs->kegiatan }}
-                        @endif
+                        <p style="text-align: justify; margin:0px;">
+                            {{ $laporan['status'] }} {{ $laporan['terlambat'] ?? ''}} | Kerja : {{ $laporan['total_jam_kerja'] }} <br> Keterangan :
+                            {{ $laporan['keterangan'] }}
+                        </p>
                     </td>
                 </tr>
             @endforeach
         </table>
-        <table width="100%" style="margin-top: 2%">
-    <tr>
-        <td colspan="2" style="text-align: right">Malang, {{ date('d-m-Y') }}</td>
 
-    </tr>
-    <tr>
-        <td style="text-align: center;">
-            <b>Hakim Pembimbing,</b><br> <!-- Jabatan ditambahkan di atas -->
-            <br><br> <!-- Ruang untuk tanda tangan -->
-            <br><br> <!-- Ruang untuk tanda tangan -->
-            <b>
-                <u>MUSLIH HARSONO, S.H., M.H.</u><br>
-            </b>
-            <b>NIP. 19670216 199203 1 002</b>
-        </td>
-        <td style="text-align: center;">
-            <b>Koordinator Magang,</b><br> <!-- Jabatan ditambahkan di atas -->
-            <br><br> <!-- Ruang untuk tanda tangan -->
-            <br><br> <!-- Ruang untuk tanda tangan -->
-            <b>
-                <u>EKO WAHONO, S.H</u><br>
-            </b>
-            <b>NIP. 19800330 200212 1 002</b>
-        </td>
-    </tr>
-</table>
+
+        <table width="100%" style="margin-top: 2%">
+            <tr>
+                <td></td>
+                <td colspan="2" style="text-align: left;padding-left: 5%;">Malang, {{ date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: left;padding-left: 5%;">
+
+                        <b>Hakim Pembimbing,</b><br> <!-- Jabatan ditambahkan di atas -->
+                        <br><br> <!-- Ruang untuk tanda tangan -->
+                        <br><br> <!-- Ruang untuk tanda tangan -->
+                        <b>
+                            <u>MUSLIH HARSONO, S.H., M.H.</u><br>
+                        </b>
+                        <b>NIP. 19670216 199203 1 002</b>
+                    
+                </td>
+                <td style="text-align: left;padding-left: 5%;">
+
+                        <b>Koordinator Magang,</b><br> <!-- Jabatan ditambahkan di atas -->
+                        <br><br> <!-- Ruang untuk tanda tangan -->
+                        <br><br> <!-- Ruang untuk tanda tangan -->
+                        <b>
+                            <u>EKO WAHONO, S.H</u><br>
+                        </b>
+                        <b>NIP. 19800330 200212 1 002</b>
+                    
+                </td>
+            </tr>
+        </table>
     </section>
 </body>
 

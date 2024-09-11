@@ -1,4 +1,4 @@
-@extends('layouts.admin.tabler');
+@extends('layouts.admin.tabler')
 @section('content')
 <div class="page-header d-print-none">
     <div class="container-xl">
@@ -16,7 +16,7 @@
 <div class="page-body">
     <div class="container-xl">
         <div class="row">
-            <div class="col-6">
+            <div class="">
                 <div class="card">
                     <div class="card-body">
                         <form action="/presensi/cetaklaporan" id="formlaporan" target="_blank" method="POST">

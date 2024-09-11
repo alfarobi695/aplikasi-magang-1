@@ -8,9 +8,9 @@
                     @php
                         $path = Storage::url('upload/mahasiswa/' . Auth::guard('mahasiswa')->user()->foto);
                     @endphp
-                <img src="{{ url($path) }}" alt="avatar" class="imaged w64 rounded">
+                <img src="{{ url($path) }}" alt="avatar" class="imaged w64 rounded" style="margin-top: -20px;">
                 @else
-                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded" style="margin-top: -20px;">
                 @endif
             </div>
             <div id="user-info">

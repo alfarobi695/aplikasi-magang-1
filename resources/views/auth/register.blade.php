@@ -122,8 +122,8 @@
                                     id="ipk_terakhir" name="ipk_terakhir" value="{{ old('ipk_terakhir') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Program Studi</label>
-                                <input type="text" class="form-control" placeholder="Masukkan Program Studi"
+                                <label class="form-label">Program Studi (contoh : S-1 Ilmu Hukum)</label>
+                                <input type="text" class="form-control" placeholder="Masukkan Program Studi "
                                     id="program_studi" name="program_studi" value="{{ old('program_studi') }}" required>
                             </div>
                             <div class="mb-3">
