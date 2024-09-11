@@ -49,4 +49,11 @@ class AuthController extends Controller
             return redirect('/loginmahasiswa')->with(['warning' => 'NIM / Password Salah']);
         }
     }
+    public function proseslogoutmahasiswa()
+    {
+        if (Auth::guard('mahasiswa')->check()) {
+            Auth::guard('mahasiswa')->logout();
+            return redirect()->to('/loginmahasiswa');
+        }
+    }
 }

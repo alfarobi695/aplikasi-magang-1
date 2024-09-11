@@ -120,15 +120,16 @@
                 <p>JURUSAN TEKNOLOGI INFORMASI</p>
                 <p>PROGRAM STUDI D-IV TEKNIK INFORMATIKA</p>
                 <br>
-                <p style="text-transform:uppercase">{{ $mahasiswa->nama_lengkap }}</p>
+                <p style="text-transform:uppercase">NAMA :{{ $mahasiswa->nama_lengkap }}</p>
                 <p>NIM : {{ $mahasiswa->nim }}</p>
+                <br>
+                <p style="text-transform:uppercase">Ruang : {{ $mahasiswa->nama_dept }}</p>
             </div>
         </div>
         <table class="tabelpresensi">
             <tr>
                 <th>No.</th>
                 <th>Tanggal</th>
-                <th>Ruang</th>
                 <th>Jam Masuk</th>
                 <th>Foto</th>
                 <th>Jam Pulang</th>
@@ -150,7 +151,6 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ date("d-m-y", strtotime($prs->tgl_presensi)) }}</td>
-                    <td>{{ $prs->nim }}</td>
                     <td>{{ $prs->jam_in }}</td>
                     <td><img src="{{ url($path_in) }}" alt="" class="foto"></td>
                     <td>{{ $prs->jam_out !== null ? $prs->jam_out : 'Belum Absen' }}</td>
@@ -172,21 +172,32 @@
                 </tr>
             @endforeach
         </table>
-        <table width="100%" style="margin-top: 100px">
-            <tr>
-                <td colspan="2" style="text-align: right">Malang, {{ date('d-m-Y') }}</td>
-            </tr>
-            <tr>
-                <td style="text-align: center; vertical-align:bottom" height="100">
-                    <u>Pak Muslih</u><br>
-                    <i><b>Hakim Pembimbing Magang</b></i>
-                </td>
-                <td style="text-align: center; vertical-align:bottom">
-                    <u>Pak ....</u><br>
-                    <i><b>Hakim Koordinator Magang</b></i>
-                </td>
-            </tr>
-        </table>
+        <table width="100%" style="margin-top: 2%">
+    <tr>
+        <td colspan="2" style="text-align: right">Malang, {{ date('d-m-Y') }}</td>
+
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Hakim Pembimbing,</b><br> <!-- Jabatan ditambahkan di atas -->
+            <br><br> <!-- Ruang untuk tanda tangan -->
+            <br><br> <!-- Ruang untuk tanda tangan -->
+            <b>
+                <u>MUSLIH HARSONO, S.H., M.H.</u><br>
+            </b>
+            <b>NIP. 19670216 199203 1 002</b>
+        </td>
+        <td style="text-align: center;">
+            <b>Koordinator Magang,</b><br> <!-- Jabatan ditambahkan di atas -->
+            <br><br> <!-- Ruang untuk tanda tangan -->
+            <br><br> <!-- Ruang untuk tanda tangan -->
+            <b>
+                <u>EKO WAHONO, S.H</u><br>
+            </b>
+            <b>NIP. 19800330 200212 1 002</b>
+        </td>
+    </tr>
+</table>
     </section>
 </body>
 

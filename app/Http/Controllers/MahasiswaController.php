@@ -299,4 +299,16 @@ class MahasiswaController extends Controller
             'presensi' => $absensi
         ]);
     }
+
+    public function beranda(Request $request){
+
+        $tabel  = Mahasiswa::where('status_magang','Lolos')->orderBy('tanggal_mulai_magang', 'desc')
+        ->get();
+        $alokasi  = Mahasiswa::selectRaw('SUM(IF(status_magang="Lolos",1,0)) as jml_mahasiswa')
+        ->first();
+        return view('beranda', [
+            'tabel' => $tabel,
+            'alokasi'=> $alokasi
+        ]);
+    }
 }

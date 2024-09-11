@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/beranda', [MahasiswaController::class, 'beranda']);
+
+
 // Posisi mahasiswa tidak login
 Route::middleware(['guest:mahasiswa'])->group(function () {
     //presensi login

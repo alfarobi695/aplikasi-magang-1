@@ -167,7 +167,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <a href="./settings.html" class="dropdown-item">Settings</a>
-                    <a href="/proseslogout" class="dropdown-item">Logout</a>
+                    <a href="/proseslogoutmahasiswa" class="dropdown-item">Logout</a>
                 </div>
             </div>
         </div>
