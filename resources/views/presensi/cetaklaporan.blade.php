@@ -121,7 +121,7 @@
                 <p style="text-transform:uppercase">JURUSAN {{ $mahasiswa->jurusan }}</p>
                 <p style="text-transform:uppercase">PROGRAM STUDI {{ $mahasiswa->program_studi }}</p>
                 <br>
-                <p style="text-transform:uppercase">NAMA :{{ $mahasiswa->nama_lengkap }}</p>
+                <p style="text-transform:uppercase">NAMA : {{ $mahasiswa->nama_lengkap }}</p>
                 <p>NIM : {{ $mahasiswa->nim }}</p>
                 <br>
                 <p style="text-transform:uppercase">Ruang : {{ $mahasiswa->nama_dept }}</p>
