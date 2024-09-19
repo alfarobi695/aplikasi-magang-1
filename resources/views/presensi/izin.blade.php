@@ -8,12 +8,12 @@
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </a>
         </div>
-        <div class="pageTitle">Data Izin / Sakit</div>
+        <div class="pageTitle" style="margin-left:30%">Data Izin / Sakit</div>
         <div class="right"></div>
     </div>
     <!-- * App Header -->
 @endsection
-
+ 
 @section('content')
     <div class="row" style="margin-top: 70px">
         <div class="col">

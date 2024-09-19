@@ -14,6 +14,7 @@ class Mahasiswa extends Authenticatable
 
     protected $table = 'mahasiswa';
     protected $primaryKey = 'nim';
+    protected $keyType = 'string';
 
     protected $fillable = [
         'nim',
@@ -35,6 +36,8 @@ class Mahasiswa extends Authenticatable
         'foto',
         'password',
         'kode_dept',
+        'alasan_blacklist',
+        'hakim_pembimbing_id'
     ];
 
     protected $hidden = [
@@ -52,6 +55,18 @@ class Mahasiswa extends Authenticatable
         return $this->belongsTo(Department::class, 'kode_dept', 'kode_dept');
     }
 
+    public function hakim_pembimbing()
+    {
+        return $this->belongsTo(HakimPembimbing::class, 'hakim_pembimbing_id', 'id');
+    }
+    public function presensi()
+    {
+        return $this->hasMany(Presensi::class, 'nim', 'nim');
+    }
+    public function riwayat_magang()
+    {
+        return $this->hasMany(RiwayatMagang::class, 'nim', 'nim');
+    }
     public function scopeSearch($query, $nama_lengkap = '', $kode_dept = '')
     {
         $query

@@ -86,22 +86,30 @@
                         <div>
                             <table class="table table-bordered" style="text-align: center;">
                                 <thead>
-                                    <tr >
+                                    <tr>
                                         <td>No</td>
                                         <td>Nama</td>
-                                        <td>NIP</td>
-                                        <td>Tanggal</td>
+                                        <td>Keterangan</td>
                                         <td>Aksi</td>
                                     </tr>
                                 </thead>
-                                <tbody >
+                                <tbody>
                                     @foreach($hakimPembimbing as $hakim)
-                                        <tr >
+                                        <tr>
                                             <td>{{ $loop->iteration}}</td>
                                             <td>{{ $hakim->nama_hakim }}</td>
-                                            <td>{{ $hakim->nip }}</td>
-                                            <td>{{ $hakim->created_at }}</td>
-                                            <td>
+                                            <td style="text-align: left;">
+                                                <ol>
+                                                    @foreach ($hakim->mahasiswa as $mahasiswa)
+                                                        <li>NIM:<a href="/mahasiswa?nim={{ $mahasiswa->nim }}" target="_blank">{{ $mahasiswa->nim }}</a>
+                                                            | {{ $mahasiswa->durasi_magang }} Minggu <br>
+                                                            {{ $mahasiswa->tanggal_mulai_magang }} s/d
+                                                            {{ \Carbon\Carbon::parse($mahasiswa->tanggal_mulai_magang)->addWeeks($mahasiswa->durasi_magang)->format('Y-m-d') }}
+                                                        </li>
+                                                    @endforeach
+                                                </ol>
+                                            </td>
+                                            <td style="white-space: nowrap; word-wrap: break-word;">
                                                 <a href="{{ route('hakim_pembimbing.edit', $hakim) }}"
                                                     class="btn btn-warning">Edit</a>
                                                 <form action="{{ route('hakim_pembimbing.destroy', $hakim) }}" method="POST"

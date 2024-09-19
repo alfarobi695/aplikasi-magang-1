@@ -27,16 +27,14 @@ Route::get('/beranda', [MahasiswaController::class, 'beranda']);
 // Posisi mahasiswa tidak login
 Route::middleware(['guest:mahasiswa'])->group(function () {
     //presensi login
-    Route::get('/', function () {
-        return view('auth.login');
-    })->name('login');
+    Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('/proseslogin', [AuthController::class, 'proseslogin']);
 
     //dashboard mahasiswa login
-    Route::get('/loginmahasiswa', function () {
-        return view('auth.loginmahasiswa');
-    })->name('login');
-    Route::post('/prosesloginmahasiswa', [AuthController::class, 'prosesloginmahasiswa']);
+    // Route::get('/loginmahasiswa', function () {
+    //     return view('auth.loginmahasiswa');
+    // })->name('proseslogin');
+    // Route::post('/prosesloginmahasiswa', [AuthController::class, 'prosesloginmahasiswa']);
 
     //dashboard mahasiswa register
     Route::get('/register', function () {
@@ -49,16 +47,16 @@ Route::middleware(['guest:mahasiswa'])->group(function () {
 // Posisi mahasiswa login
 Route::middleware(['auth:mahasiswa'])->group(function () {
     //dashboard mahasiswa
-    Route::get('/panel/dashboardmahasiswa', [DashboardController::class, 'dashboardmahasiswa']);
-    Route::get('/proseslogoutmahasiswa', [AuthController::class, 'proseslogoutmahasiswa']);
+    // Route::get('/panel/dashboardmahasiswa', [DashboardController::class, 'dashboardmahasiswa']);
+    // Route::get('/proseslogoutmahasiswa', [AuthController::class, 'proseslogoutmahasiswa']);
 
     // Edit Profile
-    Route::get('/editmahasiswa', [MahasiswaController::class, 'editmahasiswa']);
-    Route::post('/updatemahasiswa', [MahasiswaController::class, 'updatemahasiswa']);
+    // Route::get('/editmahasiswa', [MahasiswaController::class, 'editmahasiswa']);
+    // Route::post('/updatemahasiswa', [MahasiswaController::class, 'updatemahasiswa']);
 
     //Rekap Presensi
-    Route::get('/rekappresensi', [MahasiswaController::class, 'rekappresensi']);
-    Route::get('/rekapabsensi', [MahasiswaController::class, 'rekapabsensi']);
+    // Route::get('/rekappresensi', [MahasiswaController::class, 'rekappresensi']);
+    // Route::get('/rekapabsensi', [MahasiswaController::class, 'rekapabsensi']);
 
     // Presensi
     Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -106,6 +104,9 @@ Route::middleware(['auth:user'])->group(function () {
     Route::post('/mahasiswa/edit', [MahasiswaController::class, 'edit']);
     Route::post('/mahasiswa/{nim}/update', [MahasiswaController::class, 'update']);
     Route::delete('/mahasiswa/delete/{nim}', [MahasiswaController::class, 'delete']);
+
+    Route::get('/riwayat', [MahasiswaController::class, 'riwayat']);
+    Route::post('/riwayat/edit', [MahasiswaController::class, 'editriwayat']);
 
     // Department
     Route::get('/department', [DepartmentController::class, 'index']);
@@ -161,4 +162,6 @@ Route::middleware(['auth:user'])->group(function () {
     Route::post('/presensi/cetaklaporan', [PresensiController::class, 'cetaklaporan']);
     Route::get('/presensi/rekap', [PresensiController::class, 'rekap']);
     Route::post('/presensi/cetakrekap', [PresensiController::class, 'cetakrekap']);
+
+    Route::get('/update-status-magang', [MahasiswaController::class, 'updateStatusMagang']);
 });

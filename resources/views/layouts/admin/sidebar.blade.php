@@ -250,8 +250,11 @@
                                 <a class="dropdown-item" href="/department">
                                     Data Ruang
                                 </a>
-                                <a class="dropdown-item" href="/mahasiswa">
-                                    Data Mahasiswa
+                                <a class="dropdown-item" href="/mahasiswa?nama_lengkap=&status_magang=Aktif&kode_dept=">
+                                    Data Mahasiswa Aktif
+                                </a>
+                                <a class="dropdown-item" href="/riwayat">
+                                    Data Riwayat Mahasiswa
                                 </a>
                                 <a class="dropdown-item" href="/hakim_pembimbing">
                                     Data Hakim Pembimbing

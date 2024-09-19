@@ -8,7 +8,7 @@ class HakimPembimbingController extends Controller
 {
     public function index()
     {
-        $hakimPembimbing = HakimPembimbing::all();
+        $hakimPembimbing = HakimPembimbing::with('mahasiswa')->orderBy('nama_hakim')->get();
         return view('hakim_pembimbing.index', compact('hakimPembimbing'));
     }
 

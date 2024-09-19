@@ -8,7 +8,7 @@
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </a>
         </div>
-        <div class="pageTitle">E-Presensi</div>
+        <div class="pageTitle" style="margin-left:35%">E-Presensi</div>
         <div class="right"></div> 
     </div>
     <!-- * App Header -->
@@ -46,7 +46,7 @@
             <div class="mb-3">                
                 <label class="form-label">Kegiatan:</label>
                 <textarea name="kegiatan" class="form-control cursor-pointer" required rows="5"
-                placeholder="Masukan kegiatan dalam 1 paragraf"></textarea>
+                placeholder="Masukan kegiatan hari ini dalam 1 paragraf"></textarea>
             </div>
                 <button id="takeabsen" class="btn btn-danger btn-block"><ion-icon name="camera-outline">
                     </ion-icon> Absen Pulang

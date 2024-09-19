@@ -143,7 +143,7 @@ CREATE TABLE `mahasiswa` (
   `kode_dept` varchar(255) NOT NULL,
   `remembet_token` varchar(255) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status_magang` enum('Calon','Tidak Lolos','Lolos','Lulus') DEFAULT NULL
+  `status_magang` enum('Calon','Ditolak','Aktif','Selesai','Blacklist') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

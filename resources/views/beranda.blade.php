@@ -30,7 +30,9 @@
                             Selamat datang di website program magang Pengadilan Negeri Malang. Dalam hal pelaksanaan
                             program magang di Pengadilan Negeri Malang, website ini menyediakan berbagai informasi
                             penting untuk mahasiswa magang. Setiap mahasiswa yang ingin mengikuti program magang harus
-                            melakukan pendaftaran melalui platform ini dan melengkapi data yang diperlukan.
+                            melakukan pendaftaran dengan menyerahkan ke bagian Fasilitas Ruang Pelayanan Terpadu Satu Pintu (PTSP) 
+                            Pengadilan Negeri Malang berupa dokumen surat pengatar dari kampus, proposal magang (bagi magang mandiri tidak menyertakan proposal magang) 
+                            dan melengkapi data yang diperlukan.
                         </p>
                     </div>
                 </div>
@@ -70,10 +72,7 @@
                                         Mahasiswa yang ingin mendaftar magang sebagai bagian dari program Pengadilan
                                         Negeri Malang wajib merupakan mahasiswa aktif dari
                                         perguruan tinggi. Selain itu, peserta harus
-                                        menyertakan Surat Pengantar dari kampus,
-                                        Proposal Magang, dan berkomitmen untuk mengikuti seluruh kegiatan magang yang
-                                        sudah ditetapkan sesuai dengan
-                                        jadwal dan ketentuan yang berlaku.
+                                        menyertakan syarat - syarat sesuai ketentuan yang berlaku.
                                     </div>
                                 </div>
                             </div>
@@ -121,9 +120,7 @@
                                         mahasiswa aktif yang sedang mengikuti program magang adalah
                                         {{ $alokasi->jml_mahasiswa ? $alokasi->jml_mahasiswa : 0 }} orang. Mahasiswa magang
                                         akan mendapatkan bimbingan dari
-                                        mentor yang berkompeten. Pendaftaran
-                                        ditutup jika kuota telah terpenuhi atau sesuai dengan jadwal yang telah
-                                        ditetapkan.
+                                        mentor yang berkompeten. 
                                         
                                     </div>
                                 </div>

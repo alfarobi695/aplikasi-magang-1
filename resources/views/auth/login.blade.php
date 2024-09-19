@@ -2,19 +2,39 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" content="#000000" />
-    <title>E-Presensi GeoLocation</title>
+    <title>E-Presensi Magang</title>
     <meta name="description" content="Mobilekit HTML Mobile UI Kit" />
     <meta name="keywords" content="bootstrap 4, mobile template, cordova, phonegap, mobile, html" />
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" sizes="32x32" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/icon/192x192.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
-    {{-- <link rel="manifest" href="__manifest.json" /> --}}
+    <style>
+        /* Custom CSS to ensure mobile-first design */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-form {
+            max-width: 100%; /* Allow full width on mobile */
+            padding: 20px; /* Adjust padding */
+        }
+
+        /* Media queries for mobile styling */
+        @media (min-width: 768px) {
+            .login-form {
+                max-width: 400px; /* Set max width for larger screens */
+                margin: auto; /* Center the form */
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-white">
@@ -50,7 +70,7 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <input type="text" class="form-control" id="nim" placeholder="NIM"
-                                name="nim" />
+                                name="nim" required />
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
@@ -60,24 +80,15 @@
                     <div class="form-group boxed">
                         <div class="input-wrapper">
                             <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Password" />
+                                placeholder="Password" required />
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
                         </div>
                     </div>
 
-                    <div class="form-links mt-2">
-                        {{-- <div>
-                            <a href="page-register.html">Register Now</a>
-                        </div> --}}
-                        <div>
-                            <a href="page-forgot-password.html" class="text-muted">Forgot Password?</a>
-                        </div>
-                    </div>
-
-                    <div class="form-button-group">
-                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <div class="form-group boxed"style="margin-top:40%;">
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
                             Log in
                         </button>
                     </div>

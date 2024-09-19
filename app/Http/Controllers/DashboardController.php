@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $historybulanini = Presensi::where('nim', $nim)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
-            ->orderBy('tgl_presensi')->get();
+            ->orderBy('tgl_presensi', 'desc')->get();
 
         $rekappresensi = Presensi::selectRaw('COUNT(nim) as jmlhadir, SUM(IF(jam_in > "07:30", 1, 0)) as jmlterlambat')
             ->where('nim', $nim)

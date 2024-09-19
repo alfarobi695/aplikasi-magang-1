@@ -17,4 +17,8 @@ class HakimPembimbing extends Model
         'created_at',
         'updated_at'
     ];
+    public function mahasiswa()
+    {
+        return $this->hasMany(Mahasiswa::class, 'hakim_pembimbing_id', 'id');
+    }
 }

@@ -8,7 +8,7 @@
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </a>
         </div>
-        <div class="pageTitle">Edit Profile</div>
+        <div class="pageTitle" style="margin-left:35%">Edit Profile</div>
         <div class="right">
             <a href="/proseslogout" style="color:white; margin-right:10px">Logout</a>
         </div>
@@ -42,32 +42,11 @@
         <div class="col">
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" value="{{ $mahasiswa->nama_lengkap }}" name="nama_lengkap"
-                        placeholder="Nama Lengkap" autocomplete="off">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off">
                 </div>
-            </div>
-            <div class="form-group boxed">
-                <div class="input-wrapper">
-                    <input type="text" class="form-control" value="{{ $mahasiswa->no_hp }}" name="no_hp"
-                        placeholder="No. HP" autocomplete="off">
-                </div>
-            </div>
-            <div class="form-group boxed">
-                <div class="input-wrapper">
-                    <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
-                </div>
-            </div>
-            <div class="custom-file-upload" id="fileUpload1">
-                <input type="file" name="foto" id="fileuploadInput" accept=".png, .jpg, .jpeg">
-                <label for="fileuploadInput">
-                    <span>
-                        <strong>
-                            <ion-icon name="cloud-upload-outline" role="img" class="md hydrated"
-                                aria-label="cloud upload outline"></ion-icon>
-                            <i>Tap to Upload</i>
-                        </strong>
-                    </span>
-                </label>
+                <small id="passwordHelp" class="form-text text-danger" style="display:none;">Password harus
+                            minimal 5 karakter dan mengandung setidaknya 1 angka, 1 huruf kapital, dan 1 karakter
+                            khusus.</small>
             </div>
             <div class="form-group boxed">
                 <div class="input-wrapper">
@@ -80,3 +59,34 @@
         </div>
     </form>
 @endsection
+
+@push('myscript')
+<script>
+        const passwordInput = document.getElementById('password');
+        const passwordHelp = document.getElementById('passwordHelp');
+
+        passwordInput.addEventListener('input', function () {
+            const password = passwordInput.value;
+
+            // Regex untuk validasi password
+            const isValid = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{5,}$/.test(password);
+
+            if (!isValid) {
+                passwordHelp.style.display = 'block'; // Menampilkan pesan jika password tidak valid
+            } else {
+                passwordHelp.style.display = 'none'; // Menyembunyikan pesan jika password valid
+            }
+        });
+        // Validasi saat form disubmit
+        document.querySelector('form').addEventListener('submit', function (event) {
+            const password = passwordInput.value;
+            const isValid = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{5,}$/.test(password);
+
+            if (!isValid) {
+                event.preventDefault(); // Mencegah form disubmit
+
+                passwordInput.focus(); // Memfokuskan kembali input password
+            }
+        });
+    </script>
+@endpush

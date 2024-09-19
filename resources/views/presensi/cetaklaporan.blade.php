@@ -123,7 +123,7 @@
                 <br>
                 <p style="text-transform:uppercase">NAMA : {{ $mahasiswa->nama_lengkap }}</p>
                 <p>NIM : {{ $mahasiswa->nim }}</p>
-                <br>
+                <p>KEHADIRAN : {{ $persentase_kehadiran }} %</p>
                 <p style="text-transform:uppercase">Ruang : {{ $mahasiswa->nama_dept }}</p>
             </div>
         </div>
@@ -175,29 +175,29 @@
         <table width="100%" style="margin-top: 2%">
             <tr>
                 <td></td>
-                <td colspan="2" style="text-align: left;padding-left: 5%;">Malang, {{ date('d-m-Y') }}</td>
+                <td colspan="2" style="text-align: left;padding-left: 2%;">Malang, {{ date('d-m-Y') }}</td>
             </tr>
             <tr>
-                <td style="text-align: left;padding-left: 5%;">
+                <td style="text-align: left;padding-left: 2%;">
 
                         <b>Hakim Pembimbing,</b><br> <!-- Jabatan ditambahkan di atas -->
                         <br><br> <!-- Ruang untuk tanda tangan -->
                         <br><br> <!-- Ruang untuk tanda tangan -->
                         <b>
-                            <u style="text-transform:uppercase">{{ $nama_hakim }}</u><br>
+                            <u style="text-transform:uppercase">{{ $mahasiswa->nama_hakim }}</u><br>
                         </b>
-                        <b>NIP. {{ $nip }}</b>
+                        <b>NIP. {{  $mahasiswa->nip  }}</b>
                     
                 </td>
-                <td style="text-align: left;padding-left: 5%;">
+                <td style="text-align: left;padding-left: 2%;">
 
                         <b>Koordinator Magang,</b><br> <!-- Jabatan ditambahkan di atas -->
                         <br><br> <!-- Ruang untuk tanda tangan -->
                         <br><br> <!-- Ruang untuk tanda tangan -->
                         <b>
-                            <u>EKO WAHONO, S.H</u><br>
+                            <u style="text-transform:uppercase">{{ $koordinator_magang->nama_hakim }}</u><br>
                         </b>
-                        <b>NIP. 19800330 200212 1 002</b>
+                        <b>NIP. {{ $koordinator_magang->nip }}</b>
                     
                 </td>
             </tr>

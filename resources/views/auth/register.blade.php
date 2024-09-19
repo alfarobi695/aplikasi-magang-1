@@ -13,8 +13,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Sign in with illustration - Tabler - Premium and Open Source dashboard template with responsive and high
-        quality UI.</title>
+    
+
+
+    <!-- Bootstrap Datepicker CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <!-- CSS files -->
     <link href="{{ asset('tabler/dist/css/tabler.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/tabler-flags.min.css?1692870487') }}" rel="stylesheet" />
@@ -36,6 +40,15 @@
 
 <body class=" d-flex flex-column">
     <script src="./dist/js/demo-theme.min.js?1724846371"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS (jika belum ada) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap Datepicker JavaScript -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <div class="page page-center">
         <div class="container py-4">
             <div class="text-center mb-4">
@@ -49,15 +62,15 @@
                     <h2 class="card-title text-center mb-4">Registrasi Mahasiswa Magang</h2>
                     <!-- Pesan Sukses atau Error -->
                     @if (session('success'))
-                        <button class="btn btn-success w-100 text-center mb-4">
+                        <a class="btn btn-success w-100 text-center mb-4">
                             {{ session('success') }}
-                        </button>
+                        </a>
                     @endif
 
                     @if (session('error'))
-                        <button class="btn btn-danger w-100 text-center mb-4">
+                        <a class="btn btn-danger w-100 text-center mb-4">
                             {{ session('error') }}
-                        </button>
+                        </a>
                     @endif
 
                     <!-- Tampilkan Error Validasi -->
@@ -74,22 +87,24 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Nama Lengkap</label>
+                                <label class="form-label">Nama Lengkap<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" placeholder="Masukkan Nama Lengkap"
                                     id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Tempat Lahir</label>
+                                <label class="form-label">Tempat Lahir<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" placeholder="Masukkan Tempat Lahir"
                                     id="tempat_lahir" name="tempat_lahir" value="{{ old('tempat_lahir') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
-                                    value="{{ old('tanggal_lahir') }}" required>
+                                <label class="form-label">Tanggal Lahir<span style="color: red;">*</span></label>
+                                <input type="text" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
+                                    placeholder="DD/MM/YYYY" value="{{ old('tanggal_lahir') }}" required>
+                                <small id="dateError" class="form-text text-danger" style="display:none;">Format tanggal
+                                    harus dd/mm/yyyy.</small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Jenis Kelamin</label>
+                                <label class="form-label">Jenis Kelamin<span style="color: red;">*</span></label>
                                 <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
                                     <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>
                                         Laki-laki</option>
@@ -98,7 +113,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Alamat</label>
+                                <label class="form-label">Alamat Di Malang<span style="color: red;">*</span></label>
                                 <textarea class="form-control" placeholder="Masukkan Alamat" id="alamat_malang"
                                     name="alamat_malang" required>{{ old('alamat_malang') }}</textarea>
                             </div>
@@ -106,28 +121,30 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">NIM</label>
+                                <label class="form-label">NIM<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" placeholder="Masukkan NIM" id="nim" name="nim"
                                     value="{{ old('nim') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Semester Saat Magang</label>
+                                <label class="form-label">Semester Saat Magang<span style="color: red;">*</span></label>
                                 <input type="number" class="form-control" placeholder="Masukkan Semester"
                                     id="semester_saat_magang" name="semester_saat_magang"
                                     value="{{ old('semester_saat_magang') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">IPK Terakhir</label>
-                                <input type="number" class="form-control" placeholder="Masukkan IPK" step="0.01"
-                                    id="ipk_terakhir" name="ipk_terakhir" value="{{ old('ipk_terakhir') }}" required>
+                                <label class="form-label">IPK Terakhir<span style="color: red;">*</span></label>
+                                <input type="number" class="form-control" placeholder="Masukkan IPK dalam skala 4"
+                                    step="0.01" id="ipk_terakhir" name="ipk_terakhir" value="{{ old('ipk_terakhir') }}"
+                                    required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Program Studi (contoh : S-1 Ilmu Hukum)</label>
+                                <label class="form-label">Program Studi (contoh : S-1 Ilmu Hukum)<span
+                                        style="color: red;">*</span></label>
                                 <input type="text" class="form-control" placeholder="Masukkan Program Studi "
                                     id="program_studi" name="program_studi" value="{{ old('program_studi') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Jurusan</label>
+                                <label class="form-label">Jurusan<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" placeholder="Masukkan Jurusan" id="jurusan"
                                     name="jurusan" value="{{ old('jurusan') }}" required>
                             </div>
@@ -136,49 +153,56 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Nomor HP (contoh : 628xxxxxxxxx)</label>
-                                <input type="tel" class="form-control"
+                                <label class="form-label">Nomor HP (contoh : 628xxxxxxxxx)<span
+                                        style="color: red;">*</span></label>
+                                <input type="number" class="form-control"
                                     placeholder="Masukkan Nomor HP Dengan 0 Diganti 62" id="no_hp" name="no_hp"
                                     value="{{ old('no_hp') }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Durasi Magang</label>
-                                <input type="number" class="form-control" placeholder="Masukkan Durasi Magang"
-                                    id="durasi_magang" name="durasi_magang" value="{{ old('durasi_magang') }}" required>
+                                <label class="form-label">Durasi Magang (contoh : 2 atau 3)<span
+                                        style="color: red;">*</span></label>
+                                <input type="number" class="form-control"
+                                    placeholder="Masukkan Durasi Magang Dalam Minggu" id="durasi_magang"
+                                    name="durasi_magang" value="{{ old('durasi_magang') }}" min="2" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Tanggal Mulai Magang</label>
-                                <input type="date" class="form-control" id="tanggal_mulai_magang"
-                                    name="tanggal_mulai_magang" value="{{ old('tanggal_mulai_magang') }}" required>
+                                <label class="form-label">Tanggal Mulai Magang<span style="color: red;">*</span></label>
+                                <input type="text" class="form-control" id="tanggal_mulai_magang"
+                                    placeholder="DD/MM/YYYY" name="tanggal_mulai_magang"
+                                    value="{{ old('tanggal_mulai_magang') }}" required>
+                                <small id="dateError" class="form-text text-danger" style="display:none;">Format tanggal
+                                    harus dd/mm/yyyy.</small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Perguruan Tinggi</label>
+                                <label class="form-label">Perguruan Tinggi<span style="color: red;">*</span></label>
                                 <input type="text" class="form-control" placeholder="Masukkan Perguruan Tinggi"
                                     id="perguruan_tinggi" name="perguruan_tinggi" value="{{ old('perguruan_tinggi') }}"
                                     required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Link Proposal Magang</label>
-                                <input type="url" class="form-control" placeholder="Masukkan Link" id="proposal_magang"
-                                    name="proposal_magang" value="{{ old('proposal_magang') }}" required>
+                                <label class="form-label">Link Proposal Magang (Opsional)</label>
+                                <input type="url" class="form-control" placeholder="Masukkan Link File Google Drive"
+                                    id="proposal_magang" name="proposal_magang" value="{{ old('proposal_magang') }}">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Link Surat Pengantar Magang</label>
-                                <input type="url" class="form-control" placeholder="Masukkan Link"
+                                <label class="form-label">Link Surat Pengantar Magang<span
+                                        style="color: red;">*</span></label>
+                                <input type="url" class="form-control" placeholder="Masukkan Link File Google Drive"
                                     id="surat_pengantar_magang" name="surat_pengantar_magang"
                                     value="{{ old('surat_pengantar_magang') }}" required>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Foto</label>
+                        <label class="form-label">Foto Selfie Sopan Rapi<span style="color: red;">*</span></label>
                         <input type="file" class="form-control" id="foto" name="foto" accept=".png, .jpg, .jpeg"
                             required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Password</label>
+                        <label class="form-label">Password<span style="color: red;">*</span></label>
                         <div class="input-group input-group-flat">
                             <input type="password" class="form-control" placeholder="Password" id="password"
                                 name="password" required>
@@ -194,6 +218,9 @@
                                 </a>
                             </span>
                         </div>
+                        <small id="passwordHelp" class="form-text text-danger" style="display:none;">Password harus
+                            minimal 5 karakter dan mengandung setidaknya 1 angka, 1 huruf kapital, dan 1 karakter
+                            khusus.</small>
                     </div>
                     <div class="form-footer">
                         <button type="submit" class="btn btn-primary w-100">Daftar</button>
@@ -228,6 +255,78 @@
             }
         });
     </script>
+    <!-- <script>
+        // Mendapatkan elemen input tanggal
+        const dateInput = document.getElementById('tanggal_mulai_magang');
+
+        // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+        const today = new Date().toISOString().split('T')[0];
+
+        // Mengatur nilai minimum untuk input tanggal
+        dateInput.setAttribute('min', today);
+    </script> -->
+    <script>
+        const passwordInput = document.getElementById('password');
+        const passwordHelp = document.getElementById('passwordHelp');
+
+        passwordInput.addEventListener('input', function () {
+            const password = passwordInput.value;
+
+            // Regex untuk validasi password
+            const isValid = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{5,}$/.test(password);
+
+            if (!isValid) {
+                passwordHelp.style.display = 'block'; // Menampilkan pesan jika password tidak valid
+            } else {
+                passwordHelp.style.display = 'none'; // Menyembunyikan pesan jika password valid
+            }
+        });
+        // Validasi saat form disubmit
+        document.querySelector('form').addEventListener('submit', function (event) {
+            const password = passwordInput.value;
+            const isValid = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{5,}$/.test(password);
+
+            if (!isValid) {
+                event.preventDefault(); // Mencegah form disubmit
+
+                passwordInput.focus(); // Memfokuskan kembali input password
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Menghitung tanggal 15-26 tahun yang lalu
+            const today = new Date();
+            const minDate = new Date();
+            const maxDate = new Date();
+
+            // Mengatur minDate 26 tahun lalu
+            minDate.setFullYear(today.getFullYear() - 27);
+            // Mengatur maxDate 15 tahun lalu
+            maxDate.setFullYear(today.getFullYear() - 15);
+
+            // Inisialisasi datepicker
+            $('#tanggal_lahir').datepicker({
+                format: 'dd/mm/yyyy', // Format yang ditampilkan kepada pengguna
+                startDate: minDate, // Tanggal minimum 26 tahun yang lalu
+                endDate: maxDate, // Tanggal maksimum 15 tahun yang lalu
+                autoclose: true // Menutup datepicker setelah memilih tanggal
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Inisialisasi datepicker
+            $('#tanggal_mulai_magang').datepicker({
+                format: 'dd/mm/yyyy', // Format yang ditampilkan kepada pengguna
+                startDate: new Date(), // Tanggal minimum 26 tahun yang lalu
+                autoclose: true // Menutup datepicker setelah memilih tanggal
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

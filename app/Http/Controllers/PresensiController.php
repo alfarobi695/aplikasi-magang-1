@@ -12,6 +12,7 @@ use App\Models\HakimPembimbing;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class PresensiController extends Controller
 {
@@ -151,40 +152,14 @@ class PresensiController extends Controller
     public function updateprofile(Request $request)
     {
         $nim = Auth::guard('mahasiswa')->user()->nim;
-        $nama_lengkap = $request->nama_lengkap;
-        $no_hp = $request->no_hp;
         $password = Hash::make($request->password);
 
-        $dt_mahasiswa = Mahasiswa::where('nim', $nim)->first();
-
-        if ($request->hasFile('foto')) {
-            $foto = $nim . "." . $request->file('foto')->getClientOriginalExtension();
-        } else {
-            $foto = $dt_mahasiswa->foto;
-        }
-
-        if (empty($request->password)) {
             $data = [
-                'nama_lengkap' => $nama_lengkap,
-                'no_hp' => $no_hp,
-                'foto' => $foto,
+                'password' => $password
             ];
-        } else {
-            $data = [
-                'nama_lengkap' => $nama_lengkap,
-                'no_hp' => $no_hp,
-                'password' => $password,
-                'foto' => $foto,
-            ];
-        }
 
         $update = Mahasiswa::where('nim', $nim)->update($data);
         if ($update) {
-            if ($request->hasFile('foto')) {
-                $folderPath = 'public/upload/mahasiswa';
-                $request->file('foto')->storeAs($folderPath, $foto);
-            }
-
             return Redirect::back()->with(['success' => 'Data berhasil di update']);
         } else {
             return Redirect::back()->with(['error' => 'Data gagal di update']);
@@ -294,8 +269,9 @@ class PresensiController extends Controller
     public function laporan()
     {
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $mahasiswa = DB::table('mahasiswa')->orderBy('nama_lengkap')->get();
-        return view('presensi.laporan', compact('namabulan', 'mahasiswa'));
+        $mahasiswa = DB::table('mahasiswa')->where('status_magang', 'Aktif')->orderBy('nama_lengkap')->get();
+        $hakim = DB::table('hakim_pembimbing')->orderBy('nama_hakim')->get();
+        return view('presensi.laporan', compact('namabulan', 'mahasiswa', 'hakim'));
     }
 
     public function cetaklaporan(Request $request)
@@ -303,13 +279,13 @@ class PresensiController extends Controller
         $nim = $request->nim;
         $bulan = $request->bulan;
         $tahun = $request->tahun;
-        $nama_hakim = $request->nama_hakim;
-        $nip = $request->nip;
+        $id_komagang = $request->id_komagang; 
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-
+        $koordinator_magang = HakimPembimbing::where('id', $id_komagang)->first();
         // Ambil data mahasiswa
         $mahasiswa = DB::table('mahasiswa')->where('nim', $nim)
             ->join('department', 'mahasiswa.kode_dept', '=', 'department.kode_dept')
+            ->join('hakim_pembimbing', 'mahasiswa.hakim_pembimbing_id', '=', 'hakim_pembimbing.id')
             ->first();
 
         // Ambil data presensi untuk bulan dan tahun yang dipilih
@@ -333,6 +309,8 @@ class PresensiController extends Controller
 
         // Buat array untuk menyimpan semua tanggal kerja (Senin-Jumat)
         $data_laporan = [];
+        $jumlah_hadir = 0; // Inisialisasi jumlah hadir
+        $total_hari_kerja = 0; // Inisialisasi jumlah total hari kerja
         for ($day = 1; $day <= $jumlah_hari; $day++) {
             // Tentukan nama hari (1 = Senin, 7 = Minggu)
             $tanggal = sprintf("%04d-%02d-%02d", $tahun, $bulan, $day);
@@ -340,6 +318,7 @@ class PresensiController extends Controller
 
             // Hanya cek Senin hingga Jumat (nama_hari 1-5)
             if ($nama_hari <= 5) {
+                $total_hari_kerja++; // Tambah total hari kerja
                 // Cari presensi untuk tanggal tersebut
                 $prs = $presensi->firstWhere('tgl_presensi', $tanggal);
 
@@ -367,12 +346,12 @@ class PresensiController extends Controller
                         'jam_out' => $prs->jam_out,
                         'status' => 'Hadir',
                         'terlambat' => $terlambat > 0 ? 'terlambat ' . round($terlambat, 2) . ' jam' : 'tepat waktu',
-                        'total_jam_kerja' => $total_jam_kerja .' jam',
+                        'total_jam_kerja' => $total_jam_kerja . ' jam',
                         'foto_in' => $prs->foto_in,
                         'keterangan' => $prs->kegiatan,
                         'foto_out' => $prs->foto_out
                     ];
-
+                    $jumlah_hadir++; // Tambah jumlah hadir jika status "Hadir"
 
                 } else {
                     // Jika tidak ada presensi, cek izin/sakit
@@ -407,54 +386,113 @@ class PresensiController extends Controller
                 }
             }
         }
-        $request->validate([
-            'nama_hakim' => 'required|string|max:255',
-            'nip' => 'required|string|max:255',
-        ]);
+        // Hitung persentase kehadiran
+        $persentase_kehadiran = $total_hari_kerja > 0 ? round(($jumlah_hadir / $total_hari_kerja) * 100, 2) : 0;
 
-        HakimPembimbing::create($request->all());
-
-        return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'data_laporan', 'nama_hakim', 'nip'));
+        return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'mahasiswa', 'data_laporan','koordinator_magang', 'persentase_kehadiran'));
     }
+
+
+    // public function rekap-()
+    // {
+    //     $mahasiswa = DB::table('mahasiswa')->orderBy('nama_lengkap')->get();
+    //     return view('presensi.rekap', compact('mahasiswa'));
+    // }
+
+    // public function cetakrekap-(Request $request)
+    // {
+    //     $nim = $request->nim;
+    //     $tahun = $request->tahun;
+
+    //     // Mengambil data mahasiswa berdasarkan NIM
+    //     $mahasiswa = DB::table('mahasiswa')
+    //         ->where('nim', $nim)
+    //         ->join('department', 'mahasiswa.kode_dept', '=', 'department.kode_dept')
+    //         ->first();
+
+    //     // Mengambil data presensi berdasarkan NIM dan tahun
+    //     $presensi = DB::table('presensi')
+    //         ->where('nim', $nim)
+    //         ->whereRaw('YEAR(tgl_presensi) = ?', [$tahun]) // Memfilter berdasarkan tahun saja
+    //         ->orderBy('tgl_presensi')
+    //         ->get();
+
+    //     // Jika melakukan eksport ke Excel
+    //     if ($request->has('exportexcel')) // Menggunakan $request untuk cek inputan
+    //     {
+    //         $time = date("d-M-Y H:i:s");
+    //         header("Content-Type: application/vnd-ms-excel");
+    //         header("Content-Disposition: attachment; filename=Laporan_Presensi_Mahasiswa_$time.xls");
+
+    //         return view('presensi.cetaklaporanexcel', compact('tahun', 'mahasiswa', 'presensi')); // 'bulan' dan 'namabulan' dihapus
+    //     }
+
+    //     // Mengembalikan view cetaklaporan
+    //     return view('presensi.cetakrekap', compact('tahun', 'mahasiswa', 'presensi')); // 'bulan' dan 'namabulan' dihapus
+    // }
 
 
     public function rekap()
     {
-        $mahasiswa = DB::table('mahasiswa')->orderBy('nama_lengkap')->get();
-        return view('presensi.rekap', compact('mahasiswa'));
+        $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        return view('presensi.rekap', compact('namabulan'));
     }
 
     public function cetakrekap(Request $request)
     {
-        $nim = $request->nim;
+        $bulan = $request->bulan;
         $tahun = $request->tahun;
 
-        // Mengambil data mahasiswa berdasarkan NIM
-        $mahasiswa = DB::table('mahasiswa')
-            ->where('nim', $nim)
-            ->join('department', 'mahasiswa.kode_dept', '=', 'department.kode_dept')
-            ->first();
+        // Ambil daftar mahasiswa yang aktif
+        $mahasiswa = Mahasiswa::where('status_magang', 'Aktif')->get();
 
-        // Mengambil data presensi berdasarkan NIM dan tahun
-        $presensi = DB::table('presensi')
-            ->where('nim', $nim)
-            ->whereRaw('YEAR(tgl_presensi) = ?', [$tahun]) // Memfilter berdasarkan tahun saja
-            ->orderBy('tgl_presensi')
-            ->get();
+        // Buat array tanggal dalam bulan tersebut, kecuali hari Sabtu dan Minggu
+        $jumlahHari = Carbon::create($tahun, $bulan)->daysInMonth;
 
-        // Jika melakukan eksport ke Excel
-        if ($request->has('exportexcel')) // Menggunakan $request untuk cek inputan
-        {
-            $time = date("d-M-Y H:i:s");
-            header("Content-Type: application/vnd-ms-excel");
-            header("Content-Disposition: attachment; filename=Laporan_Presensi_Mahasiswa_$time.xls");
-
-            return view('presensi.cetaklaporanexcel', compact('tahun', 'mahasiswa', 'presensi')); // 'bulan' dan 'namabulan' dihapus
+        $tanggalArray = [];
+        for ($i = 1; $i <= $jumlahHari; $i++) {
+            $tanggal = Carbon::create($tahun, $bulan, $i);
+            // Skip hari Sabtu (6) dan Minggu (7)
+            if (!$tanggal->isWeekend()) {
+                $tanggalArray[] = $tanggal->toDateString();
+            }
         }
 
-        // Mengembalikan view cetaklaporan
-        return view('presensi.cetakrekap', compact('tahun', 'mahasiswa', 'presensi')); // 'bulan' dan 'namabulan' dihapus
+        // Loop setiap mahasiswa dan ambil presensi mereka
+        $laporan = [];
+        foreach ($mahasiswa as $mhs) {
+            $kehadiran = [];
+            $totalHadir = 0;
+            foreach ($tanggalArray as $tanggal) {
+                $presensi = Presensi::where('nim', $mhs->nim)
+                    ->whereDate('tgl_presensi', $tanggal)
+                    ->first();
+
+                if ($presensi) {
+                    $jamIn = Carbon::parse($presensi->jam_in);
+                    if ($jamIn->greaterThan(Carbon::createFromTime(7, 30))) {
+                        $kehadiran[] = '#';
+                    } else {
+                        $kehadiran[] = '+';
+                    }
+                    $totalHadir++;
+                } else {
+                    $kehadiran[] = '-';
+                }
+            }
+
+            // Persentase kehadiran, dihitung berdasarkan hari kerja saja (tidak termasuk Sabtu dan Minggu)
+            $persentaseKehadiran = ($totalHadir / count($tanggalArray)) * 100;
+
+            $laporan[] = [
+                'nim' => $mhs->nim,
+                'nama' => $mhs->nama_lengkap,
+                'kehadiran' => $kehadiran,
+                'persentase' => round($persentaseKehadiran, 2)
+            ];
+        }
+
+        return view('presensi.cetakrekap', compact('laporan', 'tanggalArray', 'bulan', 'tahun'));
+
     }
-
-
 }

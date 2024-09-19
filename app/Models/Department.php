@@ -22,4 +22,8 @@ class Department extends Model
     {
         return $this->hasOne(Mahasiswa::class, 'kode_dept', 'kode_dept');
     }
+    public function riwayat_magang()
+    {
+        return $this->hasOne(RiwayatMagang::class, 'kode_dept', 'kode_dept');
+    }
 }

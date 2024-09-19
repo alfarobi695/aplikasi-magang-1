@@ -8,7 +8,7 @@
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </a>
         </div>
-        <div class="pageTitle">Histori Presensi</div>
+        <div class="pageTitle" style="margin-left:30%">Histori Presensi</div>
         <div class="right"></div>
     </div>
     <!-- * App Header -->
@@ -60,8 +60,8 @@
     </div>
 
     <div class="row">
-        <div class="col" id="showhistori">
-
+        <div class="col" id="showhistori" style="overflow-y: auto; max-height: calc(100vh - 150px);">
+            <!-- Konten histori akan di sini -->
         </div>
     </div>
 @endsection
@@ -70,8 +70,8 @@
     <script>
         $(function() {
             $('#getData').click(function() {
-                const bulan = $('#bulan').val()
-                const tahun = $('#tahun').val()
+                const bulan = $('#bulan').val();
+                const tahun = $('#tahun').val();
                 $.ajax({
                     type: 'POST',
                     url: '/gethistori',
@@ -82,10 +82,10 @@
                     },
                     cache: false,
                     success: function(response) {
-                        $('#showhistori').html(response)
+                        $('#showhistori').html(response);
                     }
-                })
-            })
-        })
+                });
+            });
+        });
     </script>
 @endpush
