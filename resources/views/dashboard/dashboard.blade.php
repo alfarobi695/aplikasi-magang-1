@@ -10,7 +10,7 @@
                         @endphp
                         <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="margin-top: -25px;">
             @else
-                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded"
+                <img src="public/assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded"
                     style="margin-top: -10px;">
             @endif
         </div>
@@ -222,7 +222,7 @@
                         @foreach ($leaderboard as $d)
                             <li>
                                 <div class="item">
-                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                                    <img src="public/assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                                     <div class="in">
                                         <div>
                                             <b>{{ $d->mahasiswa->nama_lengkap }}</b>
